@@ -1,14 +1,11 @@
 import React from 'react'
-import './App.css';
 import { Auth } from "./components/auth";
-import Navbar from './components/navbar/Navbar';
-import Hero  from './components/hero/Hero';
+import Homepage from './pages/Homepage';
 
 const App = () => {
   return (
     <div>
-      <Navbar />
-      <Hero />
+      <Homepage />
     </div>
   )
 }
