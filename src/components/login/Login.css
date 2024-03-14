@@ -12,21 +12,20 @@
 }
 
 .popup-inner {
-  position: fixed; /* Fixed positioning to stay in place */
-  width: 400px; /* Set a fixed width */
+  position: fixed;
+  width: 400px;
   padding: 20px;
-  background-color: #ede2dc; /* A neutral background */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* A subtle shadow for depth */
-  border-radius: 8px; /* Rounded corners for a modern look */
-  z-index: 1000; /* Ensure it's above other content */
+  background-color: #ede2dc;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  z-index: 1000;
   color: #123d6a;
 }
 
-/* Style for the close button */
 .close-btn {
   position: absolute;
-  top: 10px; /* Adjust top position for better alignment */
-  right: 10px; /* Adjust right position for consistency */
+  top: 10px;
+  right: 10px;
   background-color: transparent;
   border: none;
   font-size: 24px;
@@ -41,7 +40,6 @@
   color: #9a324f;
 }
 
-/* Form and form elements styling */
 form {
   display: flex;
   flex-direction: column;
@@ -55,12 +53,12 @@ form h1 {
 }
 
 form div {
-  margin-bottom: 15px; /* Space out form fields */
+  margin-bottom: 15px;
 }
 
 form label {
-  display: block; /* Ensure the label is on its own line */
-  margin-bottom: 5px; /* Space between label and input */
+  display: block;
+  margin-bottom: 5px;
   font-weight: bolder;
 }
 
