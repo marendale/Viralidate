@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../../config/firebaseConfig";
 import "./SignUp.css";
@@ -40,6 +40,8 @@ const SignUp = ({ trigger, setTrigger, type }) => {
           clinicCode: clinicCode,
         });
       }
+
+      await signOut(auth);
 
       setEmail('');
       setPassword('');
