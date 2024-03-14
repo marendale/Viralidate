@@ -1,66 +1,69 @@
-import React, { useState } from 'react'
-import { auth, db } from "../../config/firebaseConfig"; 
+import React, { useState } from 'react';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../../config/firebaseConfig";
 import "./SignUp.css";
-import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; 
 
-const SignUp = (props) => {
-
-  // SignUp feilds
+const SignUp = ({ trigger, setTrigger, type }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [clinicCode, setClinicCode] = useState('');
   const [error, setError] = useState(null);
 
-  // async handling function to wait for db response
   const handleSignUp = async (event) => {
     event.preventDefault();
 
     try {
-      // Create user with email and password
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Add a new document in collection "users" with the same UID
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         phoneNumber: phoneNumber,
         createdAt: new Date(),
       });
 
-      // Add new doc to patientProfile collection with the same UID
-      await setDoc(doc(db, "patientProfile", user.uid), {
-        firstName: firstName,
-        lastName: lastName,
-        dateOfBirth: dateOfBirth,
-      });
+      if (type === 'patient') {
+        await setDoc(doc(db, "patientProfile", user.uid), {
+          firstName: firstName,
+          lastName: lastName,
+          dateOfBirth: dateOfBirth,
+        });
+      } else if (type === 'admin') {
+        await setDoc(doc(db, "adminProfile", user.uid), {
+          firstName: firstName,
+          lastName: lastName,
+          clinicCode: clinicCode,
+        });
+      }
 
-      // Clear form (optional)
       setEmail('');
       setPassword('');
       setFirstName('');
       setLastName('');
       setPhoneNumber('');
       setDateOfBirth('');
+      setClinicCode('');
       setError(null);
-      // add code to redirect or update UI here 
+      setTrigger(false);
 
     } catch (error) {
       setError(error.message);
     }
   };
 
-  return (props.trigger) ? (
+  return (trigger) ? (
     <div className="popup">
       <div className="popup-inner">
-        <button className="close-btn" onClick={() => props.setTrigger(false)}>X</button>
+        <button className="close-btn" onClick={() => setTrigger(false)}>X</button>
         <div>
           <form onSubmit={handleSignUp}>
             <h1>Sign Up</h1>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && <p className="error-message">{error}</p>}
             <div>
               <label>First Name</label>
               <input
@@ -109,12 +112,22 @@ const SignUp = (props) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button type="submit">Sign Up</button>
+            {type === 'admin' &&
+              <div>
+                <label>Clinic Code</label>
+                <input
+                  type="text"
+                  value={clinicCode}
+                  onChange={(e) => setClinicCode(e.target.value)}
+                />
+              </div>
+            }
+            <button type="submit">SIGN UP</button>
           </form>
         </div>
       </div>
     </div>
-  ) : "";
+  ) : null;
 };
 
 export default SignUp;

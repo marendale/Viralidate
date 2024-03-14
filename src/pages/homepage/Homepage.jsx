@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useState } from 'react';
 import "./Homepage.css";
 import SignUp from "../../components/signup/SignUp";
-import PatientLogin from "../../components/login/PatientLogin";
-import AdminLogin from "../../components/login/AdminLogin";
-import { useState } from 'react';
+import Login from "../../components/login/Login";
+import { signOut } from "firebase/auth";
+import { auth } from "../../config/firebaseConfig";
 
 const Homepage = () => {
-    const [signUpPopup, setSignUpPopup] = useState(false);
-	const [patientLoginPopup, setPatientLoginPopup] = useState(false);
-	const [adminLoginPopup, setAdminLoginPopup] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
+    const [showSignUpOptions, setShowSignUpOptions] = useState(false);
+    const [signUpType, setSignUpType] = useState(""); // 'patient' or 'admin'
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const handleSignUpOptionClick = (type) => {
+        setSignUpType(type); // Set the type of signup
+        setShowSignUpOptions(false); // Close the signup options popup
+    };
+
+    const handleLogOut = async () => {
+        await signOut(auth);
+        setIsLoggedIn(false);
+    };
 
     return (
         <div>
@@ -29,17 +40,47 @@ const Homepage = () => {
                     </li>
                 </ul>
                 <div className="navbar-login">
-					<button onClick={() => (setSignUpPopup(true))}>
-						Sign Up
-					</button>
-					<button onClick={() => (setPatientLoginPopup(true))}>
-						Patient Login
-					</button>
-					<button onClick={() => (setAdminLoginPopup(true))}>
-						Admin Login
-					</button>
-				</div>
+                    {!isLoggedIn ? (
+                        <>
+                            <button onClick={() => setShowLogin(true)}>Login</button>
+                            <button onClick={() => setShowSignUpOptions(true)}>Sign Up</button>
+                        </>
+                    ) : (
+                        <button onClick={handleLogOut}>Log Out</button>
+                    )}
+                </div>
             </nav>
+            {showLogin && (
+                <Login trigger={showLogin} setTrigger={setShowLogin} onLoginSuccess={() => setIsLoggedIn(true)}/>
+                // Assuming the PatientLogin component will be used for generic login. 
+                // You may need to adjust or create a new component for a generic login form.
+            )}
+
+            {showSignUpOptions && (
+                <div className="popup">
+                    <div className="popup-inner">
+                        <button className="close-btn" onClick={() => setShowSignUpOptions(false)}>X</button>
+                        <div className="signup-options">
+                            <button className="signup-btn" onClick={() => handleSignUpOptionClick('patient')}>
+                                Patient Sign Up
+                            </button>
+                            <button className="signup-btn" onClick={() => handleSignUpOptionClick('admin')}>
+                                Admin Sign Up
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {signUpType === 'patient' && (
+                <SignUp trigger={true} setTrigger={() => setSignUpType("")} type="patient" />
+                // Adjust your SignUp component to optionally handle 'patient' or 'admin' type if needed.
+            )}
+
+            {signUpType === 'admin' && (
+                <SignUp trigger={true} setTrigger={() => setSignUpType("")} type="admin" />
+                // Adjust your SignUp component to optionally handle 'patient' or 'admin' type if needed.
+            )}
             {/* -------------------------------hero----------------------------- */}
             <div className="hero">
                 <div className="hero_content">
@@ -52,9 +93,6 @@ const Homepage = () => {
                     <button class="getstarted" role="button">Get Started</button>
                 </div>
             </div>
-            <SignUp trigger={signUpPopup} setTrigger={setSignUpPopup} />
-			<PatientLogin trigger={patientLoginPopup} setTrigger={setPatientLoginPopup} />
-			<AdminLogin trigger={adminLoginPopup} setTrigger={setAdminLoginPopup} />
         </div>
     );
 };
