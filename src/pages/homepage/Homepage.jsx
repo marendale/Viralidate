@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./Homepage.css";
 import SignUp from "../../components/signup/SignUp";
 import Login from "../../components/login/Login";
-import { signOut } from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../config/firebaseConfig";
 
 const Homepage = () => {
@@ -10,6 +10,18 @@ const Homepage = () => {
     const [showSignUpOptions, setShowSignUpOptions] = useState(false);
     const [signUpType, setSignUpType] = useState(""); // 'patient' or 'admin'
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setIsLoggedIn(true);
+            } else {
+                setIsLoggedIn(false);
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
 
     const handleSignUpOptionClick = (type) => {
         setSignUpType(type); // Set the type of signup
@@ -36,7 +48,13 @@ const Homepage = () => {
                         <a href="/about">About</a>
                     </li>
                     <li>
-                        <a href="/services">Services</a>
+                        <a href="/services">Explore</a>
+                    </li>
+                    <li>
+                        <a href="/services">Symptom Checker</a>
+                    </li>
+                    <li>
+                        <a href="/contact">Appointments</a>
                     </li>
                 </ul>
                 <div className="navbar-login">
@@ -51,9 +69,7 @@ const Homepage = () => {
                 </div>
             </nav>
             {showLogin && (
-                <Login trigger={showLogin} setTrigger={setShowLogin} onLoginSuccess={() => setIsLoggedIn(true)}/>
-                // Assuming the PatientLogin component will be used for generic login. 
-                // You may need to adjust or create a new component for a generic login form.
+                <Login trigger={showLogin} setTrigger={setShowLogin} onLoginSuccess={() => setIsLoggedIn(true)} />
             )}
 
             {showSignUpOptions && (

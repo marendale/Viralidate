@@ -18,7 +18,7 @@
 .navbar-menu {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 30px;
 }
 
 .navbar-menu li a {
@@ -30,6 +30,7 @@
 
 .navbar-login button {
   margin-left: 10px;
+  width: 100px;
   padding: 10px 20px;
   cursor: pointer;
   border: none;
