@@ -16,7 +16,7 @@
 .navbar-menu {
   list-style: none;
   display: flex;
-  gap: 30px;
+  gap: 60px;
 }
 
 .navbar-menu li a {

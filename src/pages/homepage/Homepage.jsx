@@ -1,6 +1,7 @@
 import React from 'react';
 import "./Homepage.css";
 import Navbar from "../../components/navbar/Navbar";
+import Test from "../../components/Test";
 
 const Homepage = () => {
     return (
@@ -18,6 +19,7 @@ const Homepage = () => {
                     <button class="getstarted" role="button">Get Started</button>
                 </div>
             </div>
+            <Test />
         </div>
     );
 };

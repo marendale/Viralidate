@@ -13,6 +13,8 @@ const Navbar = () => {
     const [signUpType, setSignUpType] = useState(""); // 'patient' or 'admin'
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userProfileType, setUserProfileType] = useState(""); // New state for user profile type
+    const patientPaths = ['/patientportal', '/patientportal/symptom'];
+    const adminPaths = ['/adminportal', '/adminportal/appointments',];
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -58,14 +60,14 @@ const Navbar = () => {
                     <img src="\assets\logo1.png" alt="Logo" />
                 </div>
                 <ul className="navbar-menu">
-                    {location.pathname === '/patientportal' ? (
+                    {patientPaths.includes(location.pathname) ? (
                         <>
                             <li><NavLink to="/">Home</NavLink></li>
-                            <li><a href="/">Symptom Checker</a></li>
+                            <li><NavLink to="/patientportal/symptom">Symptom Checker</NavLink></li>
                             <li><a href="/">Appointments</a></li>
                             <li><a href="/">Records</a></li>
                         </>
-                    ) : location.pathname === '/adminportal' ? (
+                    ) : adminPaths.includes(location.pathname) ? (
                         <>
                             <li><NavLink to="/">Home</NavLink></li>
                             <li><a href="/">Appointments</a></li>
