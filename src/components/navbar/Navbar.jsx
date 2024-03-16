@@ -64,13 +64,13 @@ const Navbar = () => {
                         <>
                             <li><NavLink to="/">Home</NavLink></li>
                             <li><NavLink to="/patientportal/symptom">Symptom Checker</NavLink></li>
-                            <li><a href="/">Appointments</a></li>
+                            <li><NavLink to="/">Appointments</NavLink></li>
                             <li><a href="/">Records</a></li>
                         </>
                     ) : adminPaths.includes(location.pathname) ? (
                         <>
                             <li><NavLink to="/">Home</NavLink></li>
-                            <li><a href="/">Appointments</a></li>
+                            <li><NavLink to="/availability-manager">Appointments</NavLink></li>
                             <li><a href="/">Records</a></li>
                         </>
                     ) : (
