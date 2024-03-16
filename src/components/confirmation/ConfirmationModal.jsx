@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 // ConfirmationModal.jsx
 import React from 'react';
 import './ConfirmationModal.css';
