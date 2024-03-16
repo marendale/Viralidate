@@ -21,7 +21,6 @@ const Homepage = () => {
                     <button class="getstarted" role="button">Get Started</button>
                 </div>
             </div>
-            <Test />
         </div>
     );
 };
