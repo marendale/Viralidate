@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import './Symptom.css'
 import Navbar from '../../components/navbar/Navbar';
