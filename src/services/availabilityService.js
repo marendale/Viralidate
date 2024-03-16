@@ -36,7 +36,7 @@ export const fetchAvailabilitySlots = async ({ professionalId = null, severityLe
   if (onlyAvailable) {
     queryConstraints.push(where("status", "==", "Available"));
   }
-  const slotsRef = collection(db, "availability");
+  const slotsRef = collection(db, "Availability");
   const q = query(slotsRef, ...queryConstraints);
   const querySnapshot = await getDocs(q);
   let slots = [];
