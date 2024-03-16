@@ -1,0 +1,297 @@
+{
+  "symptom": "vertigo",
+  "no": {
+    "symptom": "unable_to_concentrate",
+    "no": {
+      "symptom": "green_sputum",
+      "no": {
+        "symptom": "dyspnea_on_exertion",
+        "no": {
+          "symptom": "numbness",
+          "no": {
+            "symptom": "wheezing",
+            "no": {
+              "symptom": "dysuria",
+              "no": {
+                "symptom": "pallor",
+                "no": {
+                  "symptom": "chest_discomfort",
+                  "no": {
+                    "symptom": "bedridden",
+                    "no": {
+                      "symptom": "cough",
+                      "no": {
+                        "symptom": "nervousness",
+                        "no": {
+                          "symptom": "dyspnea",
+                          "no": {
+                            "symptom": "dizziness",
+                            "no": {
+                              "symptom": "cushingoid_facies",
+                              "no": {
+                                "symptom": "general_discomfort",
+                                "no": {
+                                  "symptom": "non-productive_cough",
+                                  "no": {
+                                    "symptom": "anosmia",
+                                    "no": {
+                                      "symptom": "lethargy",
+                                      "no": {
+                                        "symptom": "pain_chest",
+                                        "no": {
+                                          "symptom": "yellow_sputum",
+                                          "no": {
+                                            "symptom": "terrify",
+                                            "no": {
+                                              "symptom": "feeling_hopeless",
+                                              "no": {
+                                                "symptom": "pain_abdominal",
+                                                "no": {
+                                                  "symptom": "headache",
+                                                  "no": {
+                                                    "symptom": "cachexia",
+                                                    "no": {
+                                                      "symptom": "diarrhea",
+                                                      "no": {
+                                                        "symptom": "swelling",
+                                                        "no": {
+                                                          "disease": "hemiparesis"
+                                                        },
+                                                        "yes": {
+                                                          "disease": "arthritis"
+                                                        }
+                                                      },
+                                                      "yes": {
+                                                        "disease": "kidney_failure_acute"
+                                                      }
+                                                    },
+                                                    "yes": {
+                                                      "disease": "benign_prostatic_hypertrophy"
+                                                    }
+                                                  },
+                                                  "yes": {
+                                                    "disease": "exanthema"
+                                                  }
+                                                },
+                                                "yes": {
+                                                  "disease": "cirrhosis"
+                                                }
+                                              },
+                                              "yes": {
+                                                "disease": "bipolar_disorder"
+                                              }
+                                            },
+                                            "yes": {
+                                              "disease": "psychotic_disorder"
+                                            }
+                                          },
+                                          "yes": {
+                                            "disease": "chronic_kidney_failure"
+                                          }
+                                        },
+                                        "yes": {
+                                          "symptom": "pruritus",
+                                          "no": {
+                                            "disease": "obesity"
+                                          },
+                                          "yes": {
+                                            "disease": "cellulitis"
+                                          }
+                                        }
+                                      },
+                                      "yes": {
+                                        "symptom": "myoclonus",
+                                        "no": {
+                                          "disease": "septicemiasystemic_infectionsepsis_(invertebrate)"
+                                        },
+                                        "yes": {
+                                          "disease": "epilepsy"
+                                        }
+                                      }
+                                    },
+                                    "yes": {
+                                      "disease": "neoplasm"
+                                    }
+                                  },
+                                  "yes": {
+                                    "disease": "deep_vein_thrombosis"
+                                  }
+                                },
+                                "yes": {
+                                  "symptom": "constipation",
+                                  "no": {
+                                    "disease": "degenerative_polyarthritis"
+                                  },
+                                  "yes": {
+                                    "symptom": "chest_tightness",
+                                    "no": {
+                                      "disease": "carcinoma"
+                                    },
+                                    "yes": {
+                                      "disease": "gastroesophageal_reflux_disease"
+                                    }
+                                  }
+                                }
+                              },
+                              "yes": {
+                                "disease": "malignant_neoplasmsprimary_malignant_neoplasm"
+                              }
+                            },
+                            "yes": {
+                              "symptom": "diarrhea",
+                              "no": {
+                                "disease": "confusion"
+                              },
+                              "yes": {
+                                "disease": "dehydration"
+                              }
+                            }
+                          },
+                          "yes": {
+                            "symptom": "sore_to_touch",
+                            "no": {
+                              "disease": "insufficiency_renal"
+                            },
+                            "yes": {
+                              "disease": "peripheral_vascular_disease"
+                            }
+                          }
+                        },
+                        "yes": {
+                          "disease": "anxiety_state"
+                        }
+                      },
+                      "yes": {
+                        "symptom": "erythema",
+                        "no": {
+                          "symptom": "productive_cough",
+                          "no": {
+                            "disease": "hepatitis_C"
+                          },
+                          "yes": {
+                            "disease": "acquired_immuno-deficiency_syndromeHIVhiv_infections"
+                          }
+                        },
+                        "yes": {
+                          "disease": "infection"
+                        }
+                      }
+                    },
+                    "yes": {
+                      "disease": "dementia"
+                    }
+                  },
+                  "yes": {
+                    "symptom": "orthopnea",
+                    "no": {
+                      "symptom": "dyspnea",
+                      "no": {
+                        "disease": "hyperlipidemia"
+                      },
+                      "yes": {
+                        "disease": "ischemia"
+                      }
+                    },
+                    "yes": {
+                      "disease": "myocardial_infarction"
+                    }
+                  }
+                },
+                "yes": {
+                  "disease": "anemia"
+                }
+              },
+              "yes": {
+                "disease": "infection_urinary_tract"
+              }
+            },
+            "yes": {
+              "symptom": "orthopnea",
+              "no": {
+                "symptom": "dyspnea",
+                "no": {
+                  "disease": "asthma"
+                },
+                "yes": {
+                  "symptom": "productive_cough",
+                  "no": {
+                    "disease": "chronic_obstructive_airway_disease"
+                  },
+                  "yes": {
+                    "symptom": "fever",
+                    "no": {
+                      "disease": "embolism_pulmonary"
+                    },
+                    "yes": {
+                      "disease": "bronchitis"
+                    }
+                  }
+                }
+              },
+              "yes": {
+                "disease": "failure_heart_congestive"
+              }
+            }
+          },
+          "yes": {
+            "symptom": "shortness_of_breath",
+            "no": {
+              "disease": "accident_cerebrovascular"
+            },
+            "yes": {
+              "symptom": "mental_status_changes",
+              "no": {
+                "disease": "hypercholesterolemia"
+              },
+              "yes": {
+                "disease": "hypothyroidism"
+              }
+            }
+          }
+        },
+        "yes": {
+          "symptom": "dyspnea",
+          "no": {
+            "disease": "coronary_arteriosclerosiscoronary_heart_disease"
+          },
+          "yes": {
+            "symptom": "pain",
+            "no": {
+              "disease": "cardiomyopathy"
+            },
+            "yes": {
+              "disease": "mitral_valve_insufficiency"
+            }
+          }
+        }
+      },
+      "yes": {
+        "disease": "pneumonia"
+      }
+    },
+    "yes": {
+      "disease": "depression_mentaldepressive_disorder"
+    }
+  },
+  "yes": {
+    "symptom": "dizziness",
+    "no": {
+      "symptom": "nausea",
+      "no": {
+        "symptom": "pain",
+        "no": {
+          "disease": "transient_ischemic_attack"
+        },
+        "yes": {
+          "disease": "osteoporosis"
+        }
+      },
+      "yes": {
+        "disease": "diabetes"
+      }
+    },
+    "yes": {
+      "disease": "hypertensive_disease"
+    }
+  }
+}
