@@ -12,7 +12,7 @@ const AvailabilityManager = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [showValidationModal, setShowValidationModal] = useState(false);
-const [validationMessage, setValidationMessage] = useState('');
+  const [validationMessage, setValidationMessage] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [editSlotId, setEditSlotId] = useState('');
   const [newSlot, setNewSlot] = useState({
@@ -39,17 +39,17 @@ const [validationMessage, setValidationMessage] = useState('');
       setShowSuccessMessage(false);
     }, 3000);
   };
-      
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     // Validation check
     if (!newSlot.endTime || !newSlot.healthcareFacilityID || !newSlot.healthcareProfessionalID || !newSlot.severityLevelAccepted || !newSlot.startTime || !newSlot.status) {
       setModalMessage('Please fill in all fields.');
       setShowConfirmModal(true); // Directly show the modal with the validation message
       return; // Exit the function early if validation fails
     }
-  
+
     try {
       if (isEditing) {
         await updateAvailabilitySlot(editSlotId, newSlot);
@@ -73,8 +73,6 @@ const [validationMessage, setValidationMessage] = useState('');
       console.error('Error submitting the slot:', error);
     }
   };
-  
-  
 
   const handleEdit = (slotId) => {
     const slot = slots.find(s => s.id === slotId);
@@ -108,7 +106,7 @@ const [validationMessage, setValidationMessage] = useState('');
       {showSuccessMessage && <div className="success-message">{successMessage}</div>}
       <h2>{isEditing ? 'Edit Availability Slot' : 'Add New Availability Slot'}</h2>
       <form onSubmit={handleSubmit} className="availability-form">
-        <input className="form-input" placeholder="Healthcare Facility ID" value={newSlot.healthcareFacilityID} onChange={e => setNewSlot({ ...newSlot, healthcareFacilityID: e.target.value })} required/>
+        <input className="form-input" placeholder="Healthcare Facility ID" value={newSlot.healthcareFacilityID} onChange={e => setNewSlot({ ...newSlot, healthcareFacilityID: e.target.value })} required />
         <input className="form-input" placeholder="Healthcare Professional ID" value={newSlot.healthcareProfessionalID} onChange={e => setNewSlot({ ...newSlot, healthcareProfessionalID: e.target.value })} required />
         <input className="form-input" type="datetime-local" value={newSlot.startTime} onChange={e => setNewSlot({ ...newSlot, startTime: e.target.value })} required />
         <input className="form-input" type="datetime-local" value={newSlot.endTime} onChange={e => setNewSlot({ ...newSlot, endTime: e.target.value })} required />
@@ -150,14 +148,14 @@ const [validationMessage, setValidationMessage] = useState('');
       </ul>
 
       <ConfirmationModal
-  isOpen={showConfirmModal}
-  onClose={() => setShowConfirmModal(false)}
-  onConfirm={() => {
-    currentAction && currentAction();
-    setShowConfirmModal(false);
-  }}
-  message={modalMessage}
-/>
+        isOpen={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={() => {
+          currentAction && currentAction();
+          setShowConfirmModal(false);
+        }}
+        message={modalMessage}
+      />
 
 
     </div>
