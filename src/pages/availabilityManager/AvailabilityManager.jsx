@@ -19,6 +19,11 @@ const AvailabilityManager = () => {
   const [currentAction, setCurrentAction] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+<<<<<<< HEAD
+=======
+  const [showValidationModal, setShowValidationModal] = useState(false);
+  const [validationMessage, setValidationMessage] = useState('');
+>>>>>>> 9f790de4843eeffaa086c84ae8649663538ce01a
   const [isEditing, setIsEditing] = useState(false);
   const [editSlotId, setEditSlotId] = useState('');
   const [newSlot, setNewSlot] = useState({
@@ -46,13 +51,18 @@ const AvailabilityManager = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+<<<<<<< HEAD
   
+=======
+
+    // Validation check
+>>>>>>> 9f790de4843eeffaa086c84ae8649663538ce01a
     if (!newSlot.endTime || !newSlot.healthcareFacilityID || !newSlot.healthcareProfessionalID || !newSlot.severityLevelAccepted || !newSlot.startTime || !newSlot.status) {
       setModalMessage('Please fill in all fields.');
       setShowConfirmModal(true);
       return;
     }
-  
+
     try {
       if (isEditing) {
         await updateAvailabilitySlot(editSlotId, newSlot);
@@ -113,6 +123,7 @@ const AvailabilityManager = () => {
       {showSuccessMessage && <div className="success-message">{successMessage}</div>}
       <h2>{isEditing ? 'Edit Availability Slot' : 'Add New Availability Slot'}</h2>
       <form onSubmit={handleSubmit} className="availability-form">
+<<<<<<< HEAD
         <input
           className="form-input"
           placeholder="Healthcare Facility ID"
@@ -147,6 +158,13 @@ const AvailabilityManager = () => {
           onChange={(e) => setNewSlot({ ...newSlot, severityLevelAccepted: e.target.value })}
           required
         >
+=======
+        <input className="form-input" placeholder="Healthcare Facility ID" value={newSlot.healthcareFacilityID} onChange={e => setNewSlot({ ...newSlot, healthcareFacilityID: e.target.value })} required />
+        <input className="form-input" placeholder="Healthcare Professional ID" value={newSlot.healthcareProfessionalID} onChange={e => setNewSlot({ ...newSlot, healthcareProfessionalID: e.target.value })} required />
+        <input className="form-input" type="datetime-local" value={newSlot.startTime} onChange={e => setNewSlot({ ...newSlot, startTime: e.target.value })} required />
+        <input className="form-input" type="datetime-local" value={newSlot.endTime} onChange={e => setNewSlot({ ...newSlot, endTime: e.target.value })} required />
+        <select className="form-select" value={newSlot.severityLevelAccepted} onChange={e => setNewSlot({ ...newSlot, severityLevelAccepted: e.target.value })} required>
+>>>>>>> 9f790de4843eeffaa086c84ae8649663538ce01a
           <option value="">Select Severity Level</option>
           <option value="Low">Low</option>
           <option value="Medium">Medium</option>
@@ -232,6 +250,11 @@ const AvailabilityManager = () => {
         }}
         message={modalMessage}
       />
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 9f790de4843eeffaa086c84ae8649663538ce01a
     </div>
   );
   
