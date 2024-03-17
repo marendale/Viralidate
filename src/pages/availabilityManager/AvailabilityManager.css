@@ -61,4 +61,26 @@
     transform: translateX(-50%);
     z-index: 1010;
   }
+   
+  .severity-low {
+    background-color: lightgreen;
+    border-color: green;
+    color: black;
+  }
+  
+  .severity-medium {
+    background-color: lightyellow;
+    border-color: rgb(255, 196, 0);
+    color: black;
+  }
+  
+  .severity-high {
+    background-color: lightcoral;
+    border-color: red;
+    color: black;
+  }
+   
+  .custom-event {
+    cursor: pointer;
+  }
   
