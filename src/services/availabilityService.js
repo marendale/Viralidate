@@ -2,11 +2,15 @@ import { db } from '../config/firebaseConfig';
 import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc, query, where } from "firebase/firestore";
 
 // Function to add an availability slot
-export const addAvailabilitySlot = async (slotDetails) => {
+export const addAvailabilitySlot = async (slotDetails, healthcareFacilityID) => {
   try {
-    const docRef = await addDoc(collection(db, "Availability"), slotDetails);
+    // Include the healthcareFacilityID in the slot details
+    const docRef = await addDoc(collection(db, "Availability"), {
+      ...slotDetails,
+      healthcareFacilityID, // Assuming this ID is passed when calling this function
+    });
     console.log("New availability slot added with ID: ", docRef.id);
-    return docRef.id; // Optionally return the new slot's document ID
+    return docRef.id;
   } catch (e) {
     console.error("Error adding availability slot: ", e);
     throw new Error("Failed to add availability slot.");
@@ -15,24 +19,16 @@ export const addAvailabilitySlot = async (slotDetails) => {
 
 /**
  * Fetches availability slots based on optional filters.
- * 
- * @param {Object} filters - An object containing filters for the query.
- * @param {string} [filters.professionalId] - Optional. Professional's ID to filter slots by.
- * @param {string} [filters.severityLevel] - Optional. Severity level to filter slots by.
- * @param {boolean} [filters.onlyAvailable=true] - Optional. Whether to fetch only available slots.
- * @returns {Promise<Array>} A promise that resolves to an array of slot objects.
+ * Assumes the current user's healthcare facility ID is known and passed as part of the filters.
  */
-export const fetchAvailabilitySlots = async ({ professionalId = null, severityLevel = null, onlyAvailable = true } = {}) => {
+export const fetchAvailabilitySlots = async ({ healthcareFacilityID = null, severityLevel = null, onlyAvailable = true } = {}) => {
   let queryConstraints = [];
-  // Filter by professional ID if provided
-  if (professionalId) {
-    queryConstraints.push(where("healthcareProfessionalID", "==", professionalId));
+  if (healthcareFacilityID) {
+    queryConstraints.push(where("healthcareFacilityID", "==", healthcareFacilityID));
   }
-  // Filter by severity level if provided
   if (severityLevel) {
     queryConstraints.push(where("severityLevelAccepted", "==", severityLevel));
   }
-  // Fetch only available slots by default
   if (onlyAvailable) {
     queryConstraints.push(where("status", "==", "Available"));
   }
@@ -45,6 +41,9 @@ export const fetchAvailabilitySlots = async ({ professionalId = null, severityLe
   });
   return slots;
 };
+
+// Functions to delete and update an availability slot remain unchanged.
+
 
 
 // Function to delete an availability slot
