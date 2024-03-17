@@ -3,9 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { addAvailabilitySlot, fetchAvailabilitySlots, deleteSlot, updateAvailabilitySlot, getCurrentUserAdminProfile } from '../../services/availabilityService';
 import ConfirmationModal from '../../components/confirmation/ConfirmationModal';
 import './AvailabilityManager.css';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import '@fullcalendar/core/main.css';
+import '@fullcalendar/daygrid/main.css';
+
 
 const AvailabilityManager = () => {
-    // Simplified initial state for the filters
     const initialFilters = {
       severityLevel: '',
       onlyAvailable: true,
@@ -13,7 +17,7 @@ const AvailabilityManager = () => {
   
 
 // Get the current date and time in ISO format, and then convert it to the local datetime format required for the input field.
-const now = new Date().toISOString().slice(0, 16);
+  const now = new Date().toISOString().slice(0, 16);
   const [slots, setSlots] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -39,7 +43,7 @@ const now = new Date().toISOString().slice(0, 16);
     const fetchAndSetAdminProfile = async () => {
       const profile = await getCurrentUserAdminProfile();
       if (profile) {
-        setAdminProfile(profile); // Assuming setAdminProfile is a useState setter
+        setAdminProfile(profile);
         setNewSlot(prev => ({
           ...prev,
           healthcareFacilityID: profile.clinicCode,
@@ -49,7 +53,7 @@ const now = new Date().toISOString().slice(0, 16);
     };
   
     fetchAndSetAdminProfile();
-  }, []); // This effect runs once on component mount to fetch admin profile
+  }, []);
   
   useEffect(() => {
     const loadSlots = async () => {

@@ -55,11 +55,7 @@ export const addAvailabilitySlot = async (slotDetails) => {
 /**
  * Fetches availability slots based on the current admin's healthcare facility ID.
  */
-// Function to fetch availability slots
-// This function now expects the healthcareFacilityID directly as it will only be fetching slots for the current admin's facility.
-// Example adjustment to fetchAvailabilitySlots to use filters
-// Assuming fetchAvailabilitySlots accepts an object with filters
-// Function to fetch availability slots
+
 export const fetchAvailabilitySlots = async (filters) => {
   try {
     const adminProfile = await getCurrentUserAdminProfile();
