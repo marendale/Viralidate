@@ -1,48 +1,93 @@
 import { db } from '../config/firebaseConfig';
-import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc, query, where } from "firebase/firestore";
+import { collection, addDoc, getDoc, getDocs, updateDoc, doc, deleteDoc, query, where } from "firebase/firestore";
+import { getAuth} from 'firebase/auth';
+
+// Function to fetch the current logged-in admin's profile
+export async function getCurrentUserAdminProfile() {
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  if (!user) {
+    console.log("No user logged in");
+    return null;
+  }
+
+  try {
+    const adminProfileRef = doc(db, "adminProfile", user.uid);
+    const docSnap = await getDoc(adminProfileRef);
+
+    if (docSnap.exists()) {
+      console.log("Admin profile data:", docSnap.data());
+      return { id: docSnap.id, ...docSnap.data() }; // Returns the profile data along with its document ID
+    } else {
+      console.log("No such document for admin profile");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching admin profile:", error);
+    throw new Error("Failed to fetch admin profile.");
+  }
+}
+
 
 // Function to add an availability slot
-export const addAvailabilitySlot = async (slotDetails, healthcareFacilityID) => {
+export const addAvailabilitySlot = async (slotDetails) => {
   try {
-    // Include the healthcareFacilityID in the slot details
-    const docRef = await addDoc(collection(db, "Availability"), {
+    const adminProfile = await getCurrentUserAdminProfile();
+    if (!adminProfile) throw new Error("Admin profile not found.");
+
+    const combinedSlotDetails = {
       ...slotDetails,
-      healthcareFacilityID, // Assuming this ID is passed when calling this function
-    });
-    console.log("New availability slot added with ID: ", docRef.id);
+      healthcareFacilityID: adminProfile.clinicCode, // Auto-populate this from admin's profile
+      healthcareProfessionalID: adminProfile.id // Use admin's UID as professional ID
+    };
+
+    const docRef = await addDoc(collection(db, "Availability"), combinedSlotDetails);
+    console.log("New availability slot added with ID:", docRef.id);
     return docRef.id;
   } catch (e) {
-    console.error("Error adding availability slot: ", e);
+    console.error("Error adding availability slot:", e);
     throw new Error("Failed to add availability slot.");
   }
 };
 
+
 /**
- * Fetches availability slots based on optional filters.
- * Assumes the current user's healthcare facility ID is known and passed as part of the filters.
+ * Fetches availability slots based on the current admin's healthcare facility ID.
  */
-export const fetchAvailabilitySlots = async ({ healthcareFacilityID = null, severityLevel = null, onlyAvailable = true } = {}) => {
-  let queryConstraints = [];
-  if (healthcareFacilityID) {
-    queryConstraints.push(where("healthcareFacilityID", "==", healthcareFacilityID));
+// Function to fetch availability slots
+// This function now expects the healthcareFacilityID directly as it will only be fetching slots for the current admin's facility.
+// Example adjustment to fetchAvailabilitySlots to use filters
+// Assuming fetchAvailabilitySlots accepts an object with filters
+// Function to fetch availability slots
+export const fetchAvailabilitySlots = async (filters) => {
+  try {
+    const adminProfile = await getCurrentUserAdminProfile();
+    if (!adminProfile) throw new Error("Admin profile not found.");
+
+    let q = query(collection(db, "Availability"), 
+      where("healthcareFacilityID", "==", adminProfile.clinicCode),
+      where("healthcareProfessionalID", "==", adminProfile.id),
+      where("status", "==", "Available"));
+
+    // Include severity level filter if provided
+    if (filters.severityLevel) {
+      q = query(q, where("severityLevelAccepted", "==", filters.severityLevel));
+    }
+
+    const querySnapshot = await getDocs(q);
+    const now = new Date();
+    return querySnapshot.docs
+      .map(doc => ({ id: doc.id, ...doc.data() }))
+      .filter(slot => new Date(slot.endTime) > now); // Exclude expired slots
+  } catch (e) {
+    console.error("Error fetching availability slots:", e);
+    throw new Error("Failed to fetch availability slots.");
   }
-  if (severityLevel) {
-    queryConstraints.push(where("severityLevelAccepted", "==", severityLevel));
-  }
-  if (onlyAvailable) {
-    queryConstraints.push(where("status", "==", "Available"));
-  }
-  const slotsRef = collection(db, "Availability");
-  const q = query(slotsRef, ...queryConstraints);
-  const querySnapshot = await getDocs(q);
-  let slots = [];
-  querySnapshot.forEach(doc => {
-    slots.push({ id: doc.id, ...doc.data() });
-  });
-  return slots;
 };
 
-// Functions to delete and update an availability slot remain unchanged.
+
+
 
 
 
@@ -56,7 +101,6 @@ export const deleteSlot = async (slotId) => {
     throw new Error("Failed to delete availability slot.");
   }
 };
-
 
 // Function to update an availability slot by its ID
 export const updateAvailabilitySlot = async (slotId, updatedSlotDetails) => {

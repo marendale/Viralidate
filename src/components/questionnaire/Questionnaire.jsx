@@ -1,3 +1,5 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import decisionTree from './decision_tree_model.json'; // Adjust the path as necessary
 import symptomQuestions from './symptom_questions.json'; // Import the symptom questions
