@@ -13,6 +13,17 @@ const SlotForm = ({ slotDetails, isEditing, onClose, onSave }) => {
     status: slotDetails?.status || 'Available',
   });
 
+  const getCurrentDateTimeLocal = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const day = now.getDate().toString().padStart(2, '0');
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+  
+
   // Update the form state when the edit mode is activated with new slot details
   useEffect(() => {
     if (slotDetails) {
@@ -90,23 +101,26 @@ const SlotForm = ({ slotDetails, isEditing, onClose, onSave }) => {
             <option value="High">High</option>
           </select>
 
-          <label htmlFor="startTime">Start Time</label>
-          <input
-            type="datetime-local"
-            name="startTime"
-            value={slot.startTime}
-            onChange={handleChange}
-            required
-          />
+         
+  <label htmlFor="startTime">Start Time</label>
+  <input
+    type="datetime-local"
+    name="startTime"
+    value={slot.startTime}
+    onChange={handleChange}
+    min={getCurrentDateTimeLocal()}
+    required
+  />
 
-          <label htmlFor="endTime">End Time</label>
-          <input
-            type="datetime-local"
-            name="endTime"
-            value={slot.endTime}
-            onChange={handleChange}
-            required
-          />
+  <label htmlFor="endTime">End Time</label>
+  <input
+    type="datetime-local"
+    name="endTime"
+    value={slot.endTime}
+    onChange={handleChange}
+    min={slot.startTime || getCurrentDateTimeLocal()} // Ensure end time is after start time
+    required
+  />
 
           <label htmlFor="status">Status</label>
           <select
