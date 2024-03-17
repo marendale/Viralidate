@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import './SlotForm.css';
 
-const SlotForm = ({ slotDetails, isEditing, onClose, onSave }) => {
+const SlotForm = ({ slotDetails, isEditing, onClose, onSave, onDelete }) => {
   const [slot, setSlot] = useState({
     healthcareFacilityID: slotDetails?.healthcareFacilityID || '',
     healthcareProfessionalID: slotDetails?.healthcareProfessionalID || '',
@@ -48,23 +48,21 @@ const SlotForm = ({ slotDetails, isEditing, onClose, onSave }) => {
         healthcareProfessionalID: slotDetails.healthcareProfessionalID
       }));
     }
-  }, [slotDetails, isEditing]);
+  }, [slotDetails, isEditing, slot]);
   
 
-  // Handle form field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setSlot(prevSlot => ({
-      ...prevSlot,
+    setSlot({
+      ...slot,
       [name]: value,
-    }));
+    });
   };
-
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(slot);
-    onClose(); // Close the modal upon saving
+    onClose();
   };
 
   return (
@@ -132,7 +130,16 @@ const SlotForm = ({ slotDetails, isEditing, onClose, onSave }) => {
             <option value="Unavailable">Unavailable</option>
           </select>
 
-          <button type="submit">{isEditing ? 'Update Slot' : 'Add Slot'}</button>
+          <button type="submit" className="slot-form-btn">
+            {isEditing ? 'Update Slot' : 'Add New Slot'}
+          </button>
+          
+          {/* Conditionally render the Delete button only in edit mode */}
+          {isEditing && (
+            <button type="button" className="slot-form-btn delete-btn" onClick={onDelete}>
+              Delete Slot
+            </button>
+          )}
         </form>
       </div>
     </div>

@@ -7,6 +7,8 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import SlotForm from '../../components/calendarPopUp/SlotForm';
 import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
+import timeGridPlugin from '@fullcalendar/timegrid';
 
 
 const AvailabilityManager = () => {
@@ -14,8 +16,9 @@ const AvailabilityManager = () => {
       severityLevel: '',
       onlyAvailable: true,
     };
-  
 
+
+  
 // Get the current date and time in ISO format, and then convert it to the local datetime format required for the input field.
   const now = new Date().toISOString().slice(0, 16);
   const [slots, setSlots] = useState([]);
@@ -28,6 +31,7 @@ const AvailabilityManager = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [editSlotId, setEditSlotId] = useState('');
+  const [currentView, setCurrentView] = useState('dayGridMonth');
   const [adminProfile, setAdminProfile] = useState({ healthcareFacilityID: '', healthcareProfessionalID: '' });
   const [newSlot, setNewSlot] = useState({
     endTime: '',
@@ -191,32 +195,50 @@ const AvailabilityManager = () => {
   };
 
   const onDateClick = useCallback((info) => {
+    const clickedDate = new Date(info.dateStr);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalize today's date to remove time part
+  
+    // Check if the clicked date is before today
+    if (clickedDate < today) {
+      alert("You cannot select a past date.");
+      return; // Do nothing if the date is in the past
+    }
+  
     setIsEditing(false);
     setEditSlotId('');
     setNewSlot({
-      healthcareFacilityID: adminProfile.healthcareFacilityID,
-      healthcareProfessionalID: adminProfile.healthcareProfessionalID,
+      healthcareFacilityID: adminProfile.clinicCode,
+      healthcareProfessionalID: adminProfile.id,
       severityLevelAccepted: '', 
       startTime: info.dateStr, 
       endTime: '', 
       status: 'Available', 
     });
-    setShowFormModal(true); // Set showFormModal to true to display the SlotForm modal
-  }, [adminProfile.healthcareFacilityID, adminProfile.healthcareProfessionalID, setIsEditing, setEditSlotId, setNewSlot, setShowFormModal]);
+    setShowFormModal(true); // Set showFormModal to true to display the SlotForm modal only for future dates
+  }, [adminProfile.healthcareFacilityID, adminProfile.healthcareProfessionalID]);
   
 
   const handleDeleteClick = (slotId) => {
     setModalMessage('Are you sure you want to delete this slot?');
-    setCurrentAction(() => () => handleDelete(slotId));
+    setCurrentAction(() => async () => { 
+      await handleDelete(slotId);
+      setShowConfirmModal(false); // Ensure modal is closed after deletion
+      setShowFormModal(false); // Close the slot form if it's open
+    });
     setShowConfirmModal(true);
   };
+  
+  
 
   const handleDelete = async (slotId) => {
     await deleteSlot(slotId);
-    setSlots(await fetchAvailabilitySlots(filters));
-    setShowConfirmModal(false);
-    displaySuccessMessage('Slot deleted successfully.');
+    setSlots(await fetchAvailabilitySlots(filters)); // Refresh the slots list
+    displaySuccessMessage('Slot deleted successfully.'); // Show success message
   };
+  
+  
+  
 
   const resetFilters = () => {
     setFilters(initialFilters);
@@ -255,13 +277,13 @@ const AvailabilityManager = () => {
     <div className="availability-container">
       {/* Displaying IDs as text at the top */}
       <div className="admin-profile-info">
-        <h2>Availability Management</h2>
-        <p><strong>Healthcare Facility ID:</strong> {adminProfile.healthcareFacilityID}</p>
-        <p><strong>Healthcare Professional ID:</strong> {adminProfile.healthcareProfessionalID}</p>
+        <h2>Availability Manager</h2>
+        <p><strong>Healthcare Facility ID:</strong> {adminProfile.clinicCode}</p>
+        <p><strong>Healthcare Professional ID:</strong> {adminProfile.id}</p>
+        <p><strong>First Name:</strong> {adminProfile.firstName}</p>
+        <p><strong>Last Name:</strong> {adminProfile.lastName}</p>
       </div>
-  
       {showSuccessMessage && <div className="success-message">{successMessage}</div>}
-  
       <h2>{isEditing ? 'Edit Availability Slot' : 'Add New Availability Slot'}</h2>
       <form onSubmit={handleSubmit} className="availability-form">
       </form>
@@ -288,19 +310,36 @@ const AvailabilityManager = () => {
         <button onClick={resetFilters} className="reset-filters">Reset Filters</button>
       </div>
 
+       {/* View Selector Dropdown */}
+       <div className="view-selector">
+        <label htmlFor="calendar-view">Choose a view: </label>
+        <select
+          id="calendar-view"
+          value={currentView}
+          onChange={(e) => setCurrentView(e.target.value)}
+        >
+          <option value="dayGridMonth">Month</option>
+          <option value="timeGridWeek">Week</option>
+          <option value="timeGridDay">Day</option>
+        </select>
+      </div>
+
       {showFormModal && (
   <SlotForm
     slotDetails={newSlot}
     isEditing={isEditing}
     onClose={() => setShowFormModal(false)}
     onSave={isEditing ? handleUpdate : handleAdd}
+    onDelete={() => handleDeleteClick(editSlotId)}
   />
 )}
 
 
-      <FullCalendar
-  plugins={[dayGridPlugin, interactionPlugin]}
-  initialView="dayGridMonth"
+
+<FullCalendar
+  key={currentView}
+  plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin]}
+  initialView={currentView}
   events={formatEventsForCalendar(slots)}
   eventClick={onEventClick}
   dateClick={onDateClick}
@@ -314,17 +353,17 @@ const AvailabilityManager = () => {
     }
   }}
 />
+
   
       {/* Confirmation modal */}
       <ConfirmationModal
-        isOpen={showConfirmModal}
-        onClose={() => setShowConfirmModal(false)}
-        onConfirm={() => {
-          currentAction && currentAction();
-          setShowConfirmModal(false);
-        }}
-        message={modalMessage}
-      />
+  isOpen={showConfirmModal}
+  onClose={() => setShowConfirmModal(false)}
+  onConfirm={() => {
+    currentAction && currentAction(); // This will delete and close the modal
+  }}
+  message={modalMessage}
+/>
     </div>
   );
   
