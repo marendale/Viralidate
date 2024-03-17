@@ -6,6 +6,7 @@ import './AvailabilityManager.css';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import SlotForm from '../../components/calendarPopUp/SlotForm';
+import interactionPlugin from '@fullcalendar/interaction';
 
 
 const AvailabilityManager = () => {
@@ -42,14 +43,14 @@ const AvailabilityManager = () => {
       case 'Low': return '#28a745'; // Green
       case 'Medium': return '#ffc107'; // Yellow
       case 'High': return '#dc3545'; // Red
-      default: return '#007bff'; // Default blue
+      default: return '#007bff'; // Default 
     }
   }, []);
 
   const formatEventsForCalendar = useCallback((slots) => {
     return slots.map(slot => ({
       id: slot.id,
-      title: `Facility ID: ${slot.healthcareFacilityID}, Professional ID: ${slot.healthcareProfessionalID}, Severity: ${slot.severityLevelAccepted}`,
+      title: `Facility ID: ${slot.healthcareFacilityID}, Severity: ${slot.severityLevelAccepted}`,
       start: slot.startTime,
       end: slot.endTime,
       color: getSeverityColor(slot.severityLevelAccepted), // Apply color based on severity
@@ -89,6 +90,8 @@ const AvailabilityManager = () => {
       loadSlots();
     }
   }, [filters, adminProfile?.clinicCode, getSeverityColor]);
+
+  
 
   const onEventClick = useCallback(({ event }) => {
     const { extendedProps } = event;
@@ -186,20 +189,20 @@ const AvailabilityManager = () => {
       status: slot.status,
     });
   };
-  
+
   const onDateClick = useCallback((info) => {
     setIsEditing(false);
     setEditSlotId('');
     setNewSlot({
-      endTime: '', 
       healthcareFacilityID: adminProfile.healthcareFacilityID,
       healthcareProfessionalID: adminProfile.healthcareProfessionalID,
-      severityLevelAccepted: '',
-      startTime: info.dateStr,
-      status: 'Available',
+      severityLevelAccepted: '', 
+      startTime: info.dateStr, 
+      endTime: '', 
+      status: 'Available', 
     });
-    setShowFormModal(true);
-  }, [adminProfile]);
+    setShowFormModal(true); // Set showFormModal to true to display the SlotForm modal
+  }, [adminProfile.healthcareFacilityID, adminProfile.healthcareProfessionalID, setIsEditing, setEditSlotId, setNewSlot, setShowFormModal]);
   
 
   const handleDeleteClick = (slotId) => {
@@ -219,14 +222,51 @@ const AvailabilityManager = () => {
     setFilters(initialFilters);
   };
 
+  const handleUpdate = async (updatedSlotData) => {
+    try {
+      await updateAvailabilitySlot(editSlotId, updatedSlotData);
+      displaySuccessMessage('Slot updated successfully.');
+      // Close the form and refresh the slots
+      setShowFormModal(false);
+      setSlots(await fetchAvailabilitySlots({ healthcareFacilityID: adminProfile?.clinicCode }));
+    } catch (error) {
+      console.error('Error updating the slot:', error);
+   
+    }
+  };
+  
+  const handleAdd = async (newSlotData) => {
+    try {
+      await addAvailabilitySlot(newSlotData);
+      displaySuccessMessage('Slot added successfully.');
+      // Close the form and refresh the slots
+      setShowFormModal(false);
+      setSlots(await fetchAvailabilitySlots({ healthcareFacilityID: adminProfile?.clinicCode }));
+    } catch (error) {
+      console.error('Error adding the slot:', error);
+
+    }
+  };
+  
+
 
   
   return (
     <div className="availability-container">
-      {showSuccessMessage && <div className="success-message">{successMessage}</div>}
-      <h2>{isEditing ? 'Edit Availability Slot' : 'Add New Availability Slot'}</h2>
+      {/* Displaying IDs as text at the top */}
+      <div className="admin-profile-info">
+        <h2>Availability Management</h2>
+        <p><strong>Healthcare Facility ID:</strong> {adminProfile.healthcareFacilityID}</p>
+        <p><strong>Healthcare Professional ID:</strong> {adminProfile.healthcareProfessionalID}</p>
+      </div>
   
-      {/* Adjusted Filters UI to remove the timeframe filters */}
+      {showSuccessMessage && <div className="success-message">{successMessage}</div>}
+  
+      <h2>{isEditing ? 'Edit Availability Slot' : 'Add New Availability Slot'}</h2>
+      <form onSubmit={handleSubmit} className="availability-form">
+      </form>
+  
+      {/* Filters UI */}
       <div className="filters-ui">
         <select
           value={filters.severityLevel}
@@ -249,20 +289,22 @@ const AvailabilityManager = () => {
       </div>
 
       {showFormModal && (
-      <SlotForm
-        slotDetails={newSlot}
-        isEditing={isEditing}
-        onClose={() => setShowFormModal(false)}
-        onSave={handleSave}
-      />
-    )}
+  <SlotForm
+    slotDetails={newSlot}
+    isEditing={isEditing}
+    onClose={() => setShowFormModal(false)}
+    onSave={isEditing ? handleUpdate : handleAdd}
+  />
+)}
+
 
       <FullCalendar
-  plugins={[dayGridPlugin]}
+  plugins={[dayGridPlugin, interactionPlugin]}
   initialView="dayGridMonth"
   events={formatEventsForCalendar(slots)}
   eventClick={onEventClick}
   dateClick={onDateClick}
+  editable={true}
   dayCellDidMount={({ date, el }) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Normalize today's date
@@ -272,9 +314,6 @@ const AvailabilityManager = () => {
     }
   }}
 />
-
-
-
   
       {/* Confirmation modal */}
       <ConfirmationModal

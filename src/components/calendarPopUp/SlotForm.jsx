@@ -1,23 +1,46 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import './SlotForm.css';
 
 const SlotForm = ({ slotDetails, isEditing, onClose, onSave }) => {
   const [slot, setSlot] = useState({
-    healthcareFacilityID: '',
-    healthcareProfessionalID: '',
-    severityLevelAccepted: '',
-    startTime: '',
-    endTime: '',
-    status: 'Available', // Default status
+    healthcareFacilityID: slotDetails?.healthcareFacilityID || '',
+    healthcareProfessionalID: slotDetails?.healthcareProfessionalID || '',
+    severityLevelAccepted: slotDetails?.severityLevelAccepted || '',
+    startTime: slotDetails?.startTime || '',
+    endTime: slotDetails?.endTime || '',
+    status: slotDetails?.status || 'Available',
   });
 
+  // Update the form state when the edit mode is activated with new slot details
   useEffect(() => {
-    if (isEditing && slotDetails) {
-      setSlot(slotDetails);
+    if (slotDetails) {
+      setSlot(prevSlot => ({
+        ...prevSlot,
+        healthcareFacilityID: slotDetails.healthcareFacilityID,
+        healthcareProfessionalID: slotDetails.healthcareProfessionalID,
+        severityLevelAccepted: slotDetails.severityLevelAccepted,
+        startTime: slotDetails.startTime,
+        endTime: slotDetails.endTime,
+        status: slotDetails.status,
+      }));
     }
-  }, [isEditing, slotDetails]);
+  }, [slotDetails]);
 
+  useEffect(() => {
+    // If slotDetails is provided and it's a new slot , autopopulate the IDs
+    if (slotDetails && !isEditing) {
+      setSlot(prevSlot => ({
+        ...prevSlot,
+        healthcareFacilityID: slotDetails.healthcareFacilityID,
+        healthcareProfessionalID: slotDetails.healthcareProfessionalID
+      }));
+    }
+  }, [slotDetails, isEditing]);
+  
+
+  // Handle form field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSlot(prevSlot => ({
@@ -26,14 +49,16 @@ const SlotForm = ({ slotDetails, isEditing, onClose, onSave }) => {
     }));
   };
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(slot);
+    onClose(); // Close the modal upon saving
   };
 
   return (
-    <div className="modal">
-      <div className="modal-content">
+    <div className="modal" onClick={onClose}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
         <span className="close" onClick={onClose}>&times;</span>
         <form onSubmit={handleSubmit}>
           <label htmlFor="healthcareFacilityID">Healthcare Facility ID</label>
@@ -41,7 +66,7 @@ const SlotForm = ({ slotDetails, isEditing, onClose, onSave }) => {
             name="healthcareFacilityID"
             value={slot.healthcareFacilityID}
             onChange={handleChange}
-            required
+            readOnly
           />
 
           <label htmlFor="healthcareProfessionalID">Healthcare Professional ID</label>
@@ -49,7 +74,7 @@ const SlotForm = ({ slotDetails, isEditing, onClose, onSave }) => {
             name="healthcareProfessionalID"
             value={slot.healthcareProfessionalID}
             onChange={handleChange}
-            required
+            readOnly
           />
 
           <label htmlFor="severityLevelAccepted">Severity Level Accepted</label>
