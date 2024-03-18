@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import decisionTree from './decision_tree_model.json'; // Adjust the path as necessary
 import symptomQuestions from './symptom_questions.json'; // Import the symptom questions
 import diseaseUrgency from './disease_urgency.json';
+import Navbar from '../navbar/Navbar';
+import './Questionnaire.css';
 
 const Questionnaire = () => {
   const [currentNode, setCurrentNode] = useState(decisionTree);
@@ -28,22 +30,28 @@ const Questionnaire = () => {
     return symptomQuestions[symptom];
   };
 
-  if (currentNode.hasOwnProperty('disease')) {    
+  if (currentNode.hasOwnProperty('disease')) {
     return (
-      <div className="container">
-        <h2>Diagnosis:</h2>
-        <p className="diagnosis">{diagnosis}</p>
-        <h2>Urgency:</h2>
-        <p className="urgency">{urgency}</p>
+      <div>
+        <Navbar />
+        <div className="diagnosis-container">
+          <h2>Diagnosis:</h2>
+          <p className="diagnosis">{diagnosis}</p>
+          <h2>Urgency:</h2>
+          <p className="urgency">{urgency}</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="container">
-      <h2>{getQuestionForSymptom(currentNode.symptom)}</h2>
-      <button onClick={() => handleAnswer(true)}>Yes</button>
-      <button onClick={() => handleAnswer(false)}>No</button>
+    <div className="question">
+      <Navbar />
+      <div className="question-container">
+        <h2>{getQuestionForSymptom(currentNode.symptom)}</h2>
+        <button id="sym-button" onClick={() => handleAnswer(true)}>Yes</button>
+        <button id="sym-button" onClick={() => handleAnswer(false)}>No</button>
+      </div>
     </div>
   );
 };

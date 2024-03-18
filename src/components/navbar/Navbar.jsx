@@ -13,8 +13,8 @@ const Navbar = () => {
     const [signUpType, setSignUpType] = useState(""); // 'patient' or 'admin'
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userProfileType, setUserProfileType] = useState(""); // New state for user profile type
-    const patientPaths = ['/patientportal', '/patientportal/symptom'];
-    const adminPaths = ['/adminportal', '/adminportal/appointments',];
+    const patientPaths = ['/patientportal', '/patientportal/symptom', '/questionnaire'];
+    const adminPaths = ['/adminportal', '/adminportal/appointments', '/availability-manager'];
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -63,7 +63,7 @@ const Navbar = () => {
                     {patientPaths.includes(location.pathname) ? (
                         <>
                             <li><NavLink to="/">Home</NavLink></li>
-                            <li><NavLink to="/patientportal/symptom">Symptom Checker</NavLink></li>
+                            <li><NavLink to="/questionnaire">Symptom Checker</NavLink></li>
                             <li><NavLink to="/">Appointments</NavLink></li>
                             <li><a href="/">Records</a></li>
                         </>

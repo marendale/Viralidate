@@ -48,5 +48,6 @@
     "bronchitis": "medium",
     "hemiparesis": "medium",
     "osteoporosis": "medium",
-    "transient_ischemic_attack": "emergency"
+    "transient_ischemic_attack": "emergency",
+    "no_diagnosis": "low"
 }
