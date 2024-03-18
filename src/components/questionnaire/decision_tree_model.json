@@ -55,7 +55,7 @@
                                                       "no": {
                                                         "symptom": "swelling",
                                                         "no": {
-                                                          "disease": "hemiparesis"
+                                                          "disease": "no_diagnosis"
                                                         },
                                                         "yes": {
                                                           "disease": "arthritis"
