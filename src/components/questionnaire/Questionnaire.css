@@ -1,0 +1,46 @@
+.question-container {
+  background-color: #edc8b8;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.diagnosis-container {
+  background-color: #edc8b8;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.question-container h2,
+.diagnosis-container h2 {
+  font-size: 48px;
+  text-align: center;
+  color: #ab3b61;
+}
+
+#sym-button {
+  padding: 10px 20px;
+  background-color: #ab3b61;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+#sym-button:hover {
+  background-color: #123d6a;
+}
+
+.diagnosis-container p {
+  font-size: 24px;
+  text-align: center;
+  color: #123d6a;
+  margin-bottom: 10px;
+}
