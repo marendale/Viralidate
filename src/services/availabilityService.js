@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { db } from '../config/firebaseConfig';
 import { collection, addDoc, getDoc, getDocs, updateDoc, doc, deleteDoc, query, where } from "firebase/firestore";
-import { getAuth} from 'firebase/auth';
+import { getAuth, setPersistence, browserSessionPersistence } from 'firebase/auth';
 
 // Function to fetch the current logged-in admin's profile
+let cachedAdminProfile = null;
+
 export async function getCurrentUserAdminProfile() {
   const auth = getAuth();
   const user = auth.currentUser;
@@ -12,13 +15,20 @@ export async function getCurrentUserAdminProfile() {
     return null;
   }
 
+  // Return cached profile if it exists
+  if (cachedAdminProfile && cachedAdminProfile.id === user.uid) {
+    return cachedAdminProfile;
+  }
+
   try {
     const adminProfileRef = doc(db, "adminProfile", user.uid);
     const docSnap = await getDoc(adminProfileRef);
 
     if (docSnap.exists()) {
       console.log("Admin profile data:", docSnap.data());
-      return { id: docSnap.id, ...docSnap.data() }; // Returns the profile data along with its document ID
+      // Cache and return the profile data
+      cachedAdminProfile = { id: docSnap.id, ...docSnap.data() };
+      return cachedAdminProfile;
     } else {
       console.log("No such document for admin profile");
       return null;
@@ -28,6 +38,7 @@ export async function getCurrentUserAdminProfile() {
     throw new Error("Failed to fetch admin profile.");
   }
 }
+
 
 
 // Function to add an availability slot
@@ -66,7 +77,7 @@ export const fetchAvailabilitySlots = async (filters) => {
       where("healthcareProfessionalID", "==", adminProfile.id),
       where("status", "==", "Available"));
 
-    // Include severity level filter if provided
+    // Include severity level filter
     if (filters.severityLevel) {
       q = query(q, where("severityLevelAccepted", "==", filters.severityLevel));
     }
