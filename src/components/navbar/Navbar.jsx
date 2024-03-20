@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import './Navbar.css'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
@@ -8,6 +9,7 @@ import { doc, getDoc } from "firebase/firestore"; // Import getDoc
 import { auth, db } from "../../config/firebaseConfig";
 
 const Navbar = () => {
+    const [navbarScrolled, setNavbarScrolled] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showSignUpOptions, setShowSignUpOptions] = useState(false);
     const [signUpType, setSignUpType] = useState(""); // 'patient' or 'admin'
@@ -17,6 +19,7 @@ const Navbar = () => {
     const adminPaths = ['/adminportal', '/adminportal/appointments', '/availability-manager'];
     const navigate = useNavigate();
     const location = useLocation();
+ 
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -38,6 +41,13 @@ const Navbar = () => {
             }
         });
 
+        const handleScroll = () => {
+            const isScrolled = window.scrollY > 0; // Or whatever number you choose
+            setNavbarScrolled(isScrolled);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
         return () => unsubscribe();
     }, []);
 
@@ -55,7 +65,7 @@ const Navbar = () => {
 
     return (
         <div>
-            <nav className="navbar">
+            <nav className={`navbar ${navbarScrolled ? 'scrolled' : ''}`}>
                 <div className="navbar-logo">
                     <img src="\assets\logo1.png" alt="Logo" />
                 </div>

@@ -3,11 +3,18 @@
   justify-content: space-between;
   align-items: center;
   padding: 30px 150px;
-  background-color: #edc8b8;
-  position: absolute;
+  background-color: transparent; 
+  position: fixed;
+  top: 0; 
   width: 100%;
   z-index: 10;
   padding-bottom: 0px;
+  transition: background-color 0.3s ease; 
+}
+
+
+.navbar.scrolled {
+  background-color: #ffffff; 
 }
 
 .navbar-logo img {
@@ -22,10 +29,12 @@
 
 .navbar-menu li a {
   text-decoration: none;
-  color: #123d6a;
+  color: #123d6a; 
   font-weight: bold;
   font-size: 20px;
+  transition: color 0.3s ease; 
 }
+
 
 .navbar-login button {
   margin-left: 10px;
@@ -37,6 +46,10 @@
   color: white;
   border-radius: 5px;
   font-size: 15px;
+}
+
+.navbar.scrolled .navbar-menu li a {
+  color: #123d6a;
 }
 
 .navbar-login button:hover,

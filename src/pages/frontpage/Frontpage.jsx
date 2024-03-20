@@ -1,11 +1,30 @@
-import React from 'react';
-import "./Frontpage.css";
-import Navbar from "../../components/navbar/Navbar";
+import React, { useState, useEffect } from 'react';
+import './Frontpage.css';
+import Navbar from '../../components/navbar/Navbar';
 
 const Frontpage = () => {
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const offset = window.scrollY;
+            if (offset > 50) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
         <div>
-            <Navbar />
+            <Navbar isScrolled={isScrolled} />
             <div className="hero">
                 <div className="video-container">
                     <iframe 
@@ -24,9 +43,7 @@ const Frontpage = () => {
                     ></iframe>
                 </div>
                 <div className="footer-navbar">
-                    <p className="description">
-                        Streamline your healthcare experience with our<br/>advanced AI-driven platform designed for both patients and professionals
-                    </p>
+                    {/* Footer content here */}
                 </div>
                 <div className="hero_content">
                     <h1 className="headline">
