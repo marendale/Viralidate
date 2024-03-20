@@ -16,7 +16,7 @@ const Homepage = () => {
                         Revolutionizing Patient Care with Smart<br></br> Symptom Checking and Scheduling
                     </h1>
                     <p className="description">
-                        Streamline your healthcare experience with our<br></br> advanced AI-driven platform designed for both patients and professionals
+                        Streamline your healthcare experience with our<br></br> advanced platform designed for both patients and professionals
                     </p>
                     <button class="getstarted" role="button">Get Started</button>
                 </div>
