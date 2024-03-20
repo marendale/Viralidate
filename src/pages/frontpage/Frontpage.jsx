@@ -22,6 +22,11 @@ const Frontpage = () => {
         };
     }, []);
 
+    const scrollDown = () => {
+        // Assume the second page is right after your current view.
+        window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+    };
+
     return (
         <div>
             <Navbar isScrolled={isScrolled} />
@@ -43,7 +48,12 @@ const Frontpage = () => {
                     ></iframe>
                 </div>
                 <div className="footer-navbar">
-                    {/* Footer content here */}
+                <img
+        src="/assets/arrow.png"
+        alt="Scroll down"
+        className="scroll-down-indicator"
+        onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
+    />
                 </div>
                 <div className="hero_content">
                     <h1 className="headline">
