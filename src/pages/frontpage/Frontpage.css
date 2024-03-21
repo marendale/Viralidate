@@ -17,6 +17,12 @@ html, body {
 .navbar.scrolled {
   background-color: #ffffff;
 }
+
+.navbar.scrolled .navbar-menu li a {
+  color: #123d6a;
+  text-shadow: none;
+}
+
   
   .navbar-logo img {
     width: 300px;
@@ -31,7 +37,7 @@ html, body {
   .navbar-menu li a {
     text-decoration: none;
     color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.74);
     font-weight: bold;
     font-size: 20px;
   }

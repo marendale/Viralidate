@@ -57,7 +57,7 @@ const Frontpage = () => {
                 </div>
                 <div className="hero_content">
                     <h1 className="headline">
-                        Revolutionizing Patient Care with Smart<br/>Symptom Checking and Scheduling
+                        Revolutionizing Patient Care<br/>with Smart<br/>Symptom Checking and Scheduling
                     </h1>
                     <button className="getstarted" role="button">Get Started</button>
                 </div>
