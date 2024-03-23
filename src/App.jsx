@@ -8,22 +8,48 @@ import Symptom from './pages/symptomChecking/Symptom';
 import AvailabilityManager from './pages/availabilityManager/AvailabilityManager'; // Adjust the import path as necessary
 import Questionnaire from './components/questionnaire/Questionnaire';
 import Frontpage from './pages/frontpage/Frontpage';
+import { AuthContext } from './components/context/AuthContext';
+import { PrivateRoute } from './components/privateRoute/PrivateRoute';
+import { createBrowserRouter,RouterProvider } from 'react-router-dom'
+
 
 const App = () => {
+  const router = createBrowserRouter([
+    {
+      path:"/",
+      element:<Homepage/>
+    },
+    {
+      path:"/patientportal",
+      element:<PrivateRoute component = {<PatientPortal />} allowed={['patient']} />
+    },
+    {
+      path:"/adminportal",
+      element:<PrivateRoute component = {<AdminPortal />} allowed={['admin']} />
+    },
+    {
+      path:"/availability-manager",
+      element:<PrivateRoute component = {<AvailabilityManager />} allowed={['admin']} />
+    },    
+    {
+      path:"/patientportal/symptom",
+      element:<PrivateRoute component = {<Symptom />} allowed={['patient']}/>
+    },
+    {
+      path:"/questionnaire",
+      element:<PrivateRoute component = {<Questionnaire />} allowed={['patient']}/>
+    },
+    {
+      path:"/frontpage",
+      element:<Frontpage />
+    }
+  ])
+
+
   return (
-    <Router>
-      <div>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/patientportal" element={<PatientPortal />} />
-          <Route path="/adminportal" element={<AdminPortal />} />
-          <Route path="/availability-manager" element={<AvailabilityManager />} /> {/* New route for managing availability */}
-          <Route path="/patientportal/symptom" element={<Symptom />} />
-          <Route path="/questionnaire" element={<Questionnaire />} />
-          <Route path="/frontpage" element={<Frontpage />} />
-        </Routes>
-      </div>
-    </Router>
+    <AuthContext>
+      <RouterProvider router={router}></RouterProvider>
+    </AuthContext>
   );
 };
 

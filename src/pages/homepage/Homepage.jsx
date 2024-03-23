@@ -3,7 +3,6 @@
 import React from 'react';
 import "./Homepage.css";
 import Navbar from "../../components/navbar/Navbar";
-import Test from "../../components/Test";
 
 const Homepage = () => {
     return (
