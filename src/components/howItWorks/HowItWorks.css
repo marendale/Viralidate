@@ -127,11 +127,11 @@
     width: 55px;
     height: 55px;
     border-radius: 50%;
-    background-color: #0c3969;
+    background-color: #ffffff;
     border-style: solid;
     border-width: 2px;
     border-color: black;
-    color: white;
+    color: rgb(0, 0, 0);
     text-align: center;
     line-height: 50px;
     position: absolute;
@@ -149,4 +149,10 @@
     display: inline-flex; 
     margin: 0 15px; 
     overflow: visible;
+}
+
+.how-it-works-card:hover .circle-number, .how-it-works-card.focus .circle-number {
+    background-color: #0c3969; /* New background color on hover */
+    color: white; /* Change text color to white on hover */
+    border-color: #0c3969; /* Optional: Adjust border color on hover if needed */
 }
