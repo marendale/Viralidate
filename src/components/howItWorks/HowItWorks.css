@@ -152,7 +152,7 @@
 }
 
 .how-it-works-card:hover .circle-number, .how-it-works-card.focus .circle-number {
-    background-color: #0c3969; /* New background color on hover */
-    color: white; /* Change text color to white on hover */
-    border-color: #0c3969; /* Optional: Adjust border color on hover if needed */
+    background-color: #0c3969; 
+    color: white;
+    border-color: #0c3969; 
 }
