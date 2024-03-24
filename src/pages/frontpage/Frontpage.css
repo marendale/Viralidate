@@ -228,7 +228,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 150px 20px;
+  padding: 90px 20px;
   background-color: #ffffff; 
 }
 
@@ -243,8 +243,9 @@ html, body {
 .about-us-text {
   flex: 1;
   padding: 20px;
+  margin-left: -30px; 
+  max-width: 600px;
 }
-
 .about-us-image {
   flex: 1;
   display: flex;
@@ -258,13 +259,23 @@ html, body {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
 }
 
-.about-us-text h2 {
-  color: #0c3969; 
+.about-us-heading {
+  text-align: center;
+    margin-bottom: -60px;
+    padding: 45px;
+    font-size: 34px;
+  color: #0c3969;
 }
 
 .about-us-text p {
-  color: #343a40; 
+  color: #343a40;
+  padding: 10px;
+  text-align: start;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-indent: 20px;
 }
+
 .footer-section {
   background-color: #0c3969;
   color: #ffffff; 

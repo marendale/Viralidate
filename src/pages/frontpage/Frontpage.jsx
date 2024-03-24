@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
 import './Frontpage.css';
 import Navbar from '../../components/navbar/Navbar';
@@ -62,7 +64,6 @@ const Frontpage = () => {
     className={`scroll-down-indicator ${showArrow ? '' : 'hide-arrow'}`}
     onClick={() => howItWorksRef.current?.scrollIntoView({ behavior: 'smooth' })}
 />
-
                 </div>
                 <div className="hero_content">
                     <h1 className="headline">
@@ -75,17 +76,21 @@ const Frontpage = () => {
             <h2 className="how-it-works-heading">How It Works</h2>
                 <HowItWorks />
             </div>
-<div className="about-us-container">
-    <div className="about-us-content">
+<h2 className="about-us-heading">About Us</h2>
+    <div className="about-us-container">
+      <div className="about-us-content">
         <div className="about-us-text">
-            <h2>About Us</h2>
-            <p>We are a team dedicated to transforming patient care through innovative technology. Our mission is to streamline the healthcare process, making it more accessible, efficient, and user-friendly for everyone. With a focus on cutting-edge solutions, we aim to empower patients and providers alike with the tools they need for better health outcomes.</p>
+          <p>
+Viralidate is revolutionizing healthcare with our innovative platform that automates symptom triage and appointment scheduling for healthcare institutions. Our solution supports the core of the healthcare system, easing the workload of professionals and staff by optimizing patient care and resource allocation. Our advanced algorithm precisely assesses symptoms, manages healthcare providers' capacities, and prioritizes appointments, enhancing efficiency and patient outcomes.
+          </p>
+          <p>We are dedicated to innovation and continuously adapting to meet the future demands of healthcare delivery. Viralidate is more than a technological tool; it's a pledge to improve healthcare experiences, ensuring operational excellence and fostering better outcomes for both patients and providers.
+          </p>
         </div>
         <div className="about-us-image">
-            <img src="\assets\team.jpg" alt="About Us" />
+          <img src="\assets\team.jpg" alt="About Us" />
         </div>
+      </div>
     </div>
-</div>
 
   <footer className="footer-section">
                 <div className="footer-content">
