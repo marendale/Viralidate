@@ -67,7 +67,7 @@ const Navbar = () => {
         <div>
             <nav className={`navbar ${navbarScrolled ? 'scrolled' : ''}`}>
                 <div className="navbar-logo">
-                    <img src="\assets\logo1.png" alt="Logo" />
+                    <img src="\assets\Viralidate.png" alt="Logo" />
                 </div>
                 <ul className="navbar-menu">
                     {patientPaths.includes(location.pathname) ? (
@@ -86,8 +86,8 @@ const Navbar = () => {
                     ) : (
                         <>
                             <li><NavLink to="/">Home</NavLink></li>
-                            <li><a href="/">About</a></li>
                             <li><a href="/">Explore</a></li>
+                            <li><a href="/">About</a></li>
                         </>
                     )}
                 </ul>
