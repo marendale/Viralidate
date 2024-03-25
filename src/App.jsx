@@ -17,7 +17,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path:"/",
-      element:<Homepage/>
+      element:<Frontpage/>
     },
     {
       path:"/patientportal",
@@ -39,10 +39,6 @@ const App = () => {
       path:"/questionnaire",
       element:<PrivateRoute component = {<Questionnaire />} allowed={['patient']}/>
     },
-    {
-      path:"/frontpage",
-      element:<Frontpage />
-    }
   ])
 
 
