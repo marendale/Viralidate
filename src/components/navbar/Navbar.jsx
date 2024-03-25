@@ -67,7 +67,7 @@ const Navbar = () => {
         <div>
             <nav className={`navbar ${navbarScrolled ? 'scrolled' : ''}`}>
                 <div className="navbar-logo">
-                    <img src="\assets\Viralidate.png" alt="Logo" />
+                    <img src="\assets\Viralidate Logo.png" alt="Logo" />
                 </div>
                 <ul className="navbar-menu">
                     {patientPaths.includes(location.pathname) ? (

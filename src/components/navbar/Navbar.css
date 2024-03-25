@@ -3,18 +3,20 @@
   justify-content: space-between;
   align-items: center;
   padding: 30px 150px;
-  background-color: transparent; 
+  background-color: rgba(255, 255, 255, 1);
+  backdrop-filter: blur(1px);
   position: fixed;
   top: 0; 
   width: 100%;
   z-index: 10;
   padding-bottom: 0px;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease; 
 }
 
 
 .navbar.scrolled {
   background-color: #ffffff; 
+  backdrop-filter: none;
 }
 
 .navbar-logo img {

@@ -95,7 +95,7 @@ Viralidate is revolutionizing healthcare with our innovative platform that autom
   <footer className="footer-section">
                 <div className="footer-content">
                     <div className="footer-left">
-                    <img src="\assets\Viralidate.png" alt="Company Logo" />
+                    <img src="\assets\Viralidate Logo.png" alt="Company Logo" />
                         <p>Georgia State University, 33 Gilmer Street SE, Atlanta, GA 30303</p>
                     </div>
                     <div className="footer-right">
