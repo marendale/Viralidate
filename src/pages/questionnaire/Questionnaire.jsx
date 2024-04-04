@@ -1,13 +1,15 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import decisionTree from './decision_tree_model.json'; // Adjust the path as necessary
 import symptomQuestions from './symptom_questions.json'; // Import the symptom questions
 import diseaseUrgency from './disease_urgency.json';
-import Navbar from '../navbar/Navbar';
+import Navbar from '../../components/navbar/Navbar';
 import './Questionnaire.css';
 
 const Questionnaire = () => {
+  const navigate = useNavigate();
   const [currentNode, setCurrentNode] = useState(decisionTree);
   const [diagnosis, setDiagnosis] = useState('');
   const [urgency, setUrgency] = useState('');
@@ -20,6 +22,12 @@ const Questionnaire = () => {
     }
   }, [currentNode]);
 
+  useEffect(() => {
+    if (diagnosis && urgency) {
+      navigate('/appointment-selection' , { state: { diagnosis: diagnosis, urgency: urgency } });
+    }
+  }, [diagnosis, urgency])
+
   const handleAnswer = (answer) => {
     const nextNode = answer ? currentNode.yes : currentNode.no;
     setCurrentNode(nextNode);
@@ -29,20 +37,6 @@ const Questionnaire = () => {
   const getQuestionForSymptom = (symptom) => {
     return symptomQuestions[symptom];
   };
-
-  if (currentNode.hasOwnProperty('disease')) {
-    return (
-      <div>
-        <Navbar />
-        <div className="diagnosis-container">
-          <h2>Diagnosis:</h2>
-          <p className="diagnosis">{diagnosis}</p>
-          <h2>Urgency:</h2>
-          <p className="urgency">{urgency}</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="question">
