@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, {useEffect} from 'react';
 import PatientPortal from './pages/patientPortal/PatientPortal';
 import AdminPortal from './pages/adminPortal/AdminPortal';
 import AvailabilityManager from './pages/availabilityManager/AvailabilityManager'; // Adjust the import path as necessary
@@ -12,6 +12,19 @@ import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 
 
 const App = () => {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "//code.tidio.co/zvwcyofvqgcrv3khy0vhvhniiimgzmuj.js";
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+
   const router = createBrowserRouter([
     {
       path:"/",
