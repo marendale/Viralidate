@@ -59,18 +59,13 @@ const Frontpage = () => {
                 </div>
                 <div className="footer-navbar">
                 <img
-    src="/assets/arrow.png"
-    alt="Scroll down"
-    className={`scroll-down-indicator ${showArrow ? '' : 'hide-arrow'}`}
-    onClick={() => howItWorksRef.current?.scrollIntoView({ behavior: 'smooth' })}
-/>
+                    src="/assets/arrow.png"
+                    alt="Scroll down"
+                    className={`scroll-down-indicator ${showArrow ? '' : 'hide-arrow'}`}
+                    onClick={() => howItWorksRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                />
                 </div>
-                <div className="hero_content">
-                    <h1 className="headline">
-                        Revolutionizing Patient Care<br/>with Smart<br/>Symptom Checking and Scheduling
-                    </h1>
-                    <button className="getstarted" role="button">Get Started</button>
-                </div>
+                
             </div>
             <div ref={howItWorksRef}> 
             <h2 className="how-it-works-heading">How It Works</h2>
