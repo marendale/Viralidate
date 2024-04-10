@@ -24,7 +24,11 @@ const Questionnaire = () => {
 
   useEffect(() => {
     if (diagnosis && urgency) {
-      navigate('/appointment-selection' , { state: { diagnosis: diagnosis, urgency: urgency } });
+      if (urgency == "Emergency") {
+        navigate('/emergency');
+      } else {
+        navigate('/appointment-selection' , { state: { diagnosis: diagnosis, urgency: urgency } });
+      }
     }
   }, [diagnosis, urgency])
 
