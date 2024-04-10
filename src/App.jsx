@@ -9,7 +9,6 @@ import Frontpage from './pages/frontpage/Frontpage';
 import { AuthContext } from './components/context/AuthContext';
 import { PrivateRoute } from './components/privateRoute/PrivateRoute';
 import { createBrowserRouter,RouterProvider } from 'react-router-dom'
-import QuestionsTest from './pages/questionnaire/QuestionsTest';
 
 
 const App = () => {
@@ -50,10 +49,6 @@ const App = () => {
     {
       path:"/appointment-selection",
       element:<PrivateRoute component = {<AppointmentSelection />} allowed={['patient']}/>
-    },
-    {
-      path:"/questions-test",
-      element:<QuestionsTest />
     },
   ])
 
