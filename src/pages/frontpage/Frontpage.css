@@ -44,7 +44,7 @@ html, body {
     font-size: 22px;
   }
   
-  .navbar-login button {
+  .navbar-login button,  .navbar-login .navbar-button {
     margin-left: 10px;
     width: 100px;
     padding: 10px 20px;
@@ -55,6 +55,7 @@ html, body {
     border-radius: 5px;
     font-size: 15px;
     font-weight: bold;
+    text-decoration: none;
   }
   
   .navbar-login button:hover,
@@ -176,7 +177,7 @@ html, body {
 .top-text {
   font-weight: bold;
   color: #0c3969;
-  font-size: 28px;
+  font-size: 34px;
   margin-top: -170px; /* Move text up */
   margin-bottom: 12px; /* Space between the top and bottom lines */
 }
@@ -313,7 +314,7 @@ html, body {
   color: #343a40;
   padding: 10px;
   text-align: center;
-  font-size: 19px;
+  font-size: 18px;
   line-height: 1.6;
   margin-bottom: 20px;
   text-indent: 20px;

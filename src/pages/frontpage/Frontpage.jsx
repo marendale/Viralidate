@@ -58,7 +58,7 @@ const Frontpage = () => {
                         }}
                         ></iframe>
                         <div className="text-block">
-                        <p className="top-text">Revolutionizing Healthcare</p>
+                        <p className="top-text">Transforming Healthcare</p>
                         <p className="bottom-text">Smart Symptom Checking and Appointment Scheduling at Your Fingertips</p>
                         </div>
                     </div>

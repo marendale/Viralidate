@@ -21,24 +21,32 @@ const Navbar = ({ isScrolled, howItWorksRef, aboutUsRef }) => {
     const location = useLocation();
     const scrollToRef = (ref) => ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
  
-
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
-                setIsLoggedIn(true);
-                // Check if the user is a patient or an admin
-                const patientProfile = await getDoc(doc(db, "patientProfile", user.uid));
-                if (patientProfile.exists()) {
-                    setUserProfileType('patient');
-                } else {
-                    const adminProfile = await getDoc(doc(db, "adminProfile", user.uid));
-                    if (adminProfile.exists()) {
-                        setUserProfileType('admin');
-                    }
+                // Attempt to fetch from both collections
+                const adminProfileRef = doc(db, "adminProfile", user.uid);
+                const patientProfileRef = doc(db, "patientProfile", user.uid);
+                try {
+                    const adminProfileSnap = await getDoc(adminProfileRef);
+                    const patientProfileSnap = await getDoc(patientProfileRef);
+                    if (adminProfileSnap.exists()) {
+                        console.log("User is an admin:", adminProfileSnap.data());
+                        setIsLoggedIn(true);
+                        setUserProfileType("admin");
+                    } else if (patientProfileSnap.exists()) {
+                        console.log("User is a patient:", patientProfileSnap.data());
+                        setIsLoggedIn(true);
+                        setUserProfileType("patient");
+                    } 
+                } catch (error) {
+                    console.error("Error fetching user profiles:", error);
+                    setIsLoggedIn(false);
+                    setUserProfileType("");
                 }
             } else {
                 setIsLoggedIn(false);
-                setUserProfileType(""); // Reset profile type on logout
+                setUserProfileType("");
             }
         });
 
@@ -51,7 +59,7 @@ const Navbar = ({ isScrolled, howItWorksRef, aboutUsRef }) => {
 
         return () => unsubscribe();
     }, []);
-
+    
     const handleSignUpOptionClick = (type) => {
         setSignUpType(type); // Set the type of signup
         setShowSignUpOptions(false); // Close the signup options popup
@@ -89,29 +97,15 @@ const Navbar = ({ isScrolled, howItWorksRef, aboutUsRef }) => {
                                 <img src="\assets\Viralidate Logo.png" alt="Logo" />
                             </Link>
                         </div>
-                        <ul className="navbar-menu">
-                            {/* Only render the Home link if the user is not on the homepage */}
-                            {location.pathname !== '/' && (
-                                <li>
-                                    <NavLink to="/" onClick={scrollToTop}>Home</NavLink>
-                                </li>
-                            )}
-                            <li><a href="#how-it-works" onClick={(e) => {e.preventDefault(); howItWorksRef.current?.scrollIntoView({ behavior: 'smooth' })}}>Explore</a></li>
-                            <li><a href="#about-us" onClick={(e) => {e.preventDefault(); aboutUsRef.current?.scrollIntoView({ behavior: 'smooth' })}}>About</a></li>
-                            {patientPaths.includes(location.pathname) && (
-                                <>
-                                    <li><NavLink to="/questionnaire">Symptom Checker</NavLink></li>
-                                    <li><NavLink to="/">Appointments</NavLink></li>
-                                    <li><a href="/">Records</a></li>
-                                </>
-                            )}
-                            {adminPaths.includes(location.pathname) && (
-                                <>
-                                    <li><NavLink to="/availability-manager">Appointments</NavLink></li>
-                                    <li><a href="/">Records</a></li>
-                                </>
-                            )}
-                        </ul>
+                        {(location.pathname === '/' || !isLoggedIn) && ( // Show these links if it's the homepage or the user is not logged in
+                            <ul className="navbar-menu">
+                                {location.pathname !== '/' && (
+                                    <li><NavLink to="/" onClick={scrollToTop}>Home</NavLink></li>
+                                )}
+                                <li><a href="#how-it-works" onClick={(e) => {e.preventDefault(); howItWorksRef.current?.scrollIntoView({ behavior: 'smooth' })}}>Explore</a></li>
+                                <li><a href="#about-us" onClick={(e) => {e.preventDefault(); aboutUsRef.current?.scrollIntoView({ behavior: 'smooth' })}}>About</a></li>
+                            </ul>
+                        )}
                         <div className="navbar-login">
                             {!isLoggedIn ? (
                                 <>
@@ -120,11 +114,14 @@ const Navbar = ({ isScrolled, howItWorksRef, aboutUsRef }) => {
                                 </>
                             ) : (
                                 <>
-                                    {userProfileType === 'patient' ? (
-                                        <Link to="/patientportal"><button>Portal</button></Link>
-                                    ) : userProfileType === 'admin' ? (
-                                        <Link to="/adminportal"><button>Portal</button></Link>
-                                    ) : null}
+                                    {/* Portal Button */}
+                                    {userProfileType === 'admin' ? (
+                                        <NavLink to="/adminportal" className="navbar-button">Admin Portal</NavLink>
+                                    ) : (
+                                        <NavLink to="/patientportal" className="navbar-button">Patient Portal</NavLink>
+                                    )}
+            
+                                    {/* Log Out Button */}
                                     <button onClick={handleLogOut}>Log Out</button>
                                 </>
                             )}
@@ -138,26 +135,19 @@ const Navbar = ({ isScrolled, howItWorksRef, aboutUsRef }) => {
                             <div className="popup-inner">
                                 <button className="close-btn" onClick={() => setShowSignUpOptions(false)}>X</button>
                                 <div className="signup-options">
-                                    <button className="signup-btn" onClick={() => handleSignUpOptionClick('patient')}>
-                                        Patient Sign Up
-                                    </button>
-                                    <button className="signup-btn" onClick={() => handleSignUpOptionClick('admin')}>
-                                        Admin Sign Up
-                                    </button>
+                                    <button className="signup-btn" onClick={() => handleSignUpOptionClick('patient')}>Patient Sign Up</button>
+                                    <button className="signup-btn" onClick={() => handleSignUpOptionClick('admin')}>Admin Sign Up</button>
                                 </div>
                             </div>
                         </div>
                     )}
-                    {signUpType === 'patient' && (
-                        <SignUp trigger={true} setTrigger={() => setSignUpType("")} type="patient" />
-                    )}
-                    {signUpType === 'admin' && (
-                        <SignUp trigger={true} setTrigger={() => setSignUpType("")} type="admin" />
+                    {signUpType && (
+                        <SignUp trigger={true} setTrigger={() => setSignUpType("")} type={signUpType} />
                     )}
                 </div>
             );
             
-    
-}
-
-export default Navbar;
+            
+        }
+        
+        export default Navbar;

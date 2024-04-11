@@ -40,8 +40,6 @@
     width: auto; 
 }
 
-
-
 .how-it-works-card:hover, .how-it-works-card.focus {
     transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(0,0,0,0.4); 
