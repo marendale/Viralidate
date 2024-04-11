@@ -150,8 +150,41 @@ html, body {
     position: relative;
     width: 100%;
     padding-bottom: 56.25%;
-    margin-top: -100px;
+    margin-top: -120px;
     overflow: hidden;
+}
+
+.text-block {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  text-align: center;
+  padding: 125px;
+  box-sizing: border-box;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+}
+
+.text-content {
+  width: 100%;
+}
+
+.top-text {
+  font-weight: bold;
+  color: #0c3969;
+  font-size: 28px;
+  margin-top: -170px; /* Move text up */
+  margin-bottom: 12px; /* Space between the top and bottom lines */
+}
+
+.bottom-text {
+  color: #344036;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .video-container iframe {
@@ -271,7 +304,7 @@ html, body {
 .about-us-heading {
   text-align: center;
     margin-bottom: -60px;
-    padding: 45px;
+    padding: 85px;
     font-size: 34px;
   color: #0c3969;
 }

@@ -9,6 +9,7 @@ const Frontpage = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const howItWorksRef = useRef(null); 
     const [showArrow, setShowArrow] = useState(true);
+    const aboutUsRef = useRef(null); 
 
 
     useEffect(() => {
@@ -39,7 +40,7 @@ const Frontpage = () => {
 
     return (
         <div>
-            <Navbar isScrolled={isScrolled} />
+            <Navbar isScrolled={isScrolled} howItWorksRef={howItWorksRef} aboutUsRef={aboutUsRef} />
             <div className="hero">
                 <div className="video-container">
                     <iframe 
@@ -50,13 +51,17 @@ const Frontpage = () => {
                             left: '0',
                             width: '100%',
                             height: '100%',
-                            frameborder: '0',
+                            frameBorder: '0',
                             allow: 'autoplay; fullscreen; picture-in-picture; clipboard-write',
-                            allowfullscreen: true,
+                            allowFullScreen: true,
                             title: 'New Video'
                         }}
-                    ></iframe>
-                </div>
+                        ></iframe>
+                        <div className="text-block">
+                        <p className="top-text">Revolutionizing Healthcare</p>
+                        <p className="bottom-text">Smart Symptom Checking and Appointment Scheduling at Your Fingertips</p>
+                        </div>
+                    </div>
                 <div className="footer-navbar">
                 <img
                     src="/assets/arrow.png"
@@ -71,42 +76,43 @@ const Frontpage = () => {
             <h2 className="how-it-works-heading">How It Works</h2>
                 <HowItWorks />
             </div>
-<h2 className="about-us-heading">About Us</h2>
-    <div className="about-us-container">
-      <div className="about-us-content">
-        <div className="about-us-text">
-          <p>
-Viralidate is revolutionizing healthcare with our innovative platform that automates symptom triage and appointment scheduling for healthcare institutions. Our solution supports the core of the healthcare system, easing the workload of professionals and staff by optimizing patient care and resource allocation. Our advanced algorithm precisely assesses symptoms, manages healthcare providers' capacities, and prioritizes appointments, enhancing efficiency and patient outcomes.
-          </p>
-          <p>We are dedicated to innovation and continuously adapting to meet the future demands of healthcare delivery. Viralidate is more than a technological tool; it's a pledge to improve healthcare experiences, ensuring operational excellence and fostering better outcomes for both patients and providers.
-          </p>
-        </div>
-        <div className="about-us-image">
-          <img src="\assets\team.jpg" alt="About Us" />
-        </div>
-      </div>
-    </div>
-
-  <footer className="footer-section">
-                <div className="footer-content">
-                    <div className="footer-left">
-                    <img src="\assets\Viralidate Logo.png" alt="Company Logo" />
-                        <p>Georgia State University, 33 Gilmer Street SE, Atlanta, GA 30303</p>
-                    </div>
-                    <div className="footer-right">
-                        <h3>Newsletter</h3>
-                        <p>Sign up for our newsletter for essential tips and news.</p>
-                        <input type="email" placeholder="Your email" />
-                        <button>Send</button>
-                    </div>
+            <h2 className="about-us-heading" ref={aboutUsRef}>About Us</h2>
+            <div className="about-us-container">
+              <div className="about-us-content">
+                <div className="about-us-text">
+                  <p>
+        Viralidate is revolutionizing healthcare with our innovative platform that automates symptom triage and appointment scheduling for healthcare institutions. Our solution supports the core of the healthcare system, easing the workload of professionals and staff by optimizing patient care and resource allocation. Our advanced algorithm precisely assesses symptoms, manages healthcare providers' capacities, and prioritizes appointments, enhancing efficiency and patient outcomes.
+                  </p>
+                  <p>We are dedicated to innovation and continuously adapting to meet the future demands of healthcare delivery. Viralidate is more than a technological tool; it's a pledge to improve healthcare experiences, ensuring operational excellence and fostering better outcomes for both patients and providers.
+                  </p>
                 </div>
-                <div className="footer-bottom">
-                    <p>Made in Atlanta</p>
-                    <p>© 2024 Viralidate. All rights reserved.</p>
+                <div className="about-us-image">
+                  <img src="\assets\team.jpg" alt="About Us" />
                 </div>
-            </footer>
-        </div>
+              </div>
+            </div>
+    
+          <footer className="footer-section">
+                        <div className="footer-content">
+                            <div className="footer-left">
+                            <img src="\assets\Viralidate Logo.png" alt="Company Logo" />
+                                <p>Georgia State University, 33 Gilmer Street SE, Atlanta, GA 30303</p>
+                            </div>
+                            <div className="footer-right">
+                                <h3>Newsletter</h3>
+                                <p>Sign up to our newsletter for essential tips and news.</p>
+                                <input type="email" placeholder="Your email" />
+                                <button>Send</button>
+                            </div>
+                        </div>
+                        <div className="footer-bottom">
+                            <p>Made in Atlanta</p>
+                            <p>© 2024 Viralidate. All rights reserved.</p>
+                        </div>
+                    </footer>
+                </div>
     );
+    
 };
 
 export default Frontpage;
