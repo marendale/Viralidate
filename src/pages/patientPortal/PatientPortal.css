@@ -2,3 +2,75 @@
     background-color: #ffffff;
     height: 100vh;
 }
+
+.patient-portal-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.portal-content {
+    display: flex;
+    flex-grow: 1;
+}
+
+.sidebar {
+    min-width: 200px; 
+    background: #f0f0f0; 
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: calc(120vh - 60px); 
+    overflow-y: auto;
+    padding-top: 110px;
+}
+
+.menu-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-list li:hover,
+.menu-list li.active {
+    background: #d0d0d0; 
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.icon {
+    display: inline-block;
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.upcoming-visits {
+    padding: 20px;
+    margin-top: 90px; 
+    padding-top: 22px; 
+    margin-bottom: 20px; 
+    background-color: #f0f0f0; 
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.upcoming-visits h2 {
+    margin-bottom: 15px;
+}
