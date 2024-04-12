@@ -37,6 +37,18 @@
   transition: color 0.3s ease; 
 }
 
+.navbar-login {
+  display: flex; /* This enables Flexbox, which aligns children elements in a row by default */
+  align-items: center; /* This vertically centers the items in the container */
+  gap: 10px; /* This adds some space between each item */
+}
+
+.navbar-login h4 {
+  margin: 0; /* Removes default margin from h6 for better alignment */
+  padding: 0; /* Ensures no extra space around the h6 elements */
+  /* Add additional styling here */
+}
+
 
 .navbar-login button {
   margin-left: 10px;
@@ -48,6 +60,7 @@
   color: white;
   border-radius: 5px;
   font-size: 15px;
+  text-align: center;
 }
 
 .navbar.scrolled .navbar-menu li a {
