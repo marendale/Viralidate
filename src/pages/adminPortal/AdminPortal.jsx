@@ -2,6 +2,7 @@ import React from 'react';
 import './AdminPortal.css';
 import Navbar from '../../components/navbar/Navbar';
 import { FaUser, FaFileMedical, FaCalendarCheck, FaEnvelope, FaStethoscope } from 'react-icons/fa';
+import AvailabilityManager from '../availabilityManager/AvailabilityManager';
 
 
 const AdminPortal = () => {

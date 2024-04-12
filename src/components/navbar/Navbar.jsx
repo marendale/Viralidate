@@ -51,14 +51,29 @@ const Navbar = ({ isScrolled, howItWorksRef, aboutUsRef }) => {
         });
 
         const handleScroll = () => {
-            const isScrolled = window.scrollY > 0;
-            setNavbarScrolled(isScrolled);
+            // Check if the user is on the homepage
+            if (location.pathname === '/') {
+                const isScrolled = window.scrollY > 0;
+                setNavbarScrolled(isScrolled);
+            } else {
+                // Set navbar to appear scrolled on other pages
+                setNavbarScrolled(true);
+            }
         };
 
+        // Add scroll event listener
         window.addEventListener('scroll', handleScroll);
 
-        return () => unsubscribe();
-    }, []);
+        // Set initial navbar state based on the current location
+        handleScroll(); // Call it immediately to set initial state
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [location.pathname]); 
+
+
+
     
     const handleSignUpOptionClick = (type) => {
         setSignUpType(type); // Set the type of signup
