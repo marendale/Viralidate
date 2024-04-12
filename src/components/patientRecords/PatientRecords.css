@@ -1,0 +1,51 @@
+.patient-records-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    min-height: 700px;
+    margin-top: 160px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.records-section {
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.records-section h2 {
+    font-size: 24px;
+    color: #343a40;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.records-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.records-section li {
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.records-section li:last-child {
+    border-bottom: none;
+}
+
+.records-section li span {
+    display: block;
+}
+
+.records-section li strong {
+    color: #000;
+}

@@ -47,4 +47,37 @@
 .body-no-scroll {
     overflow: hidden;
   }
+
+
+.slot-form-btn {
+    margin-top: 10px;
+    width: 100px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: #0c3969;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .slot-form-btn:hover {
+    opacity: 0.8;
+  }
+  
+  .delete-btn {
+    background-color: #dc3545; /* Red color for delete button */
+  }
+  
+  .delete-btn:hover {
+    background-color: #bb2d3b; /* Darker red on hover */
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
   

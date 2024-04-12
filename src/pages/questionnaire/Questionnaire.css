@@ -1,5 +1,5 @@
 .question-container {
-  background-color: #edc8b8;
+  background-color: #ffffff;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -20,11 +20,11 @@
 .diagnosis-container h2 {
   font-size: 48px;
   text-align: center;
-  color: #ab3b61;
+  color: #0c3969;
 }
 
 #sym-button {
-  padding: 10px 20px;
+  padding: 20px 70px;
   background-color: #ab3b61;
   color: #fff;
   border: none;
@@ -35,7 +35,7 @@
 }
 
 #sym-button:hover {
-  background-color: #123d6a;
+  opacity: 0.8;
 }
 
 .diagnosis-container p {

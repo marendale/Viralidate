@@ -324,23 +324,24 @@ const AvailabilityManager = () => {
             />
           )}
 
-          <FullCalendar
-            key={currentView}
-            plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin]}
-            initialView={currentView}
-            events={formatEventsForCalendar(slots)}
-            eventClick={onEventClick}
-            dateClick={onDateClick}
-            editable={true}
-            dayCellDidMount={({ date, el }) => {
-              const today = new Date();
-              today.setHours(0, 0, 0, 0); // Normalize today's date
-              if (date < today) {
-                // This day is in the past
-                el.style.backgroundColor = '#f1f1f1'; // Grey out the background
-              }
-            }}
-          />
+<FullCalendar
+    key={currentView}
+    plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin]}
+    initialView={currentView}
+    events={formatEventsForCalendar(slots)}
+    eventClick={onEventClick}
+    dateClick={onDateClick}
+    editable={true}
+    dayCellDidMount={({ date, el }) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Normalize today's date
+        if (date < today) {
+            // This day is in the past
+            el.style.backgroundColor = '#f1f1f1'; // Grey out the background
+        }
+    }}
+    height="460px" 
+/>
 
           {/* Confirmation modal */}
           <ConfirmationModal

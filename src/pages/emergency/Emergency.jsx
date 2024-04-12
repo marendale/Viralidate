@@ -44,7 +44,7 @@ const Emergency = () => {
   return (
     <>
     <div className='emergency-message'>
-        <h1>Emergency Medical Attention Required!!</h1>
+        <h1>Emergency Medical Attention Required!!!</h1>
         <h3>Please go to the nearest emergency room or call an ambulance</h3>
     </div>
     <div className='ers'>

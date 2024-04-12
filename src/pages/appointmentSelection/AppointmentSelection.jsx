@@ -85,23 +85,34 @@ const AppointmentSelection = () => {
         navigate('/appointment-confirmation' , { state: {id: id} });
     }
 
+    const handleBack = () => {
+        navigate(-1); // Navigate back to the previous page
+    };
+
     const today = new Date().toISOString().split('T')[0];
 
     return (
-        <div>
+        <div className="fullcalendar-container">
+            <button className="navbar-button back-button" onClick={handleBack}>Back</button>
             <h2>Appointment Selection</h2>
             <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+                headerToolbar={{
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                }}
                 initialView="dayGridMonth"
                 events={available}
                 eventClick={handleEventClick}
-                validRange={{ start: today }}//grey out past dates
+                validRange={{ start: today }}
+                height="auto" 
             />
             {selectedAppointment && (
                 <ConfirmationModal
                     isOpen={!!selectedAppointment}
-                    onClose={closeConfirmationModal}
-                    onConfirm={() => {handleConfirm(selectedAppointment.id)}}
+                    onClose={() => setSelectedAppointment(null)}
+                    onConfirm={() => handleConfirm(selectedAppointment.id)}
                     message={selectedAppointment.message}
                 />
             )}
@@ -110,4 +121,3 @@ const AppointmentSelection = () => {
 }
 
 export default AppointmentSelection;
-

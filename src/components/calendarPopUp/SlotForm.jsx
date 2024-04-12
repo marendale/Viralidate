@@ -77,7 +77,7 @@ const SlotForm = ({ slotDetails, isEditing, onClose, onSave, onDelete }) => {
             onChange={handleChange}
             readOnly
           />
-
+  
           <label htmlFor="healthcareProfessionalID">Healthcare Professional ID</label>
           <input
             name="healthcareProfessionalID"
@@ -85,7 +85,7 @@ const SlotForm = ({ slotDetails, isEditing, onClose, onSave, onDelete }) => {
             onChange={handleChange}
             readOnly
           />
-
+  
           <label htmlFor="severityLevelAccepted">Severity Level Accepted</label>
           <select
             name="severityLevelAccepted"
@@ -98,28 +98,27 @@ const SlotForm = ({ slotDetails, isEditing, onClose, onSave, onDelete }) => {
             <option value="Medium">Medium</option>
             <option value="High">High</option>
           </select>
-
-         
-  <label htmlFor="startTime">Start Time</label>
-  <input
-    type="datetime-local"
-    name="startTime"
-    value={slot.startTime}
-    onChange={handleChange}
-    min={getCurrentDateTimeLocal()}
-    required
-  />
-
-  <label htmlFor="endTime">End Time</label>
-  <input
-    type="datetime-local"
-    name="endTime"
-    value={slot.endTime}
-    onChange={handleChange}
-    min={slot.startTime || getCurrentDateTimeLocal()} // Ensure end time is after start time
-    required
-  />
-
+  
+          <label htmlFor="startTime">Start Time</label>
+          <input
+            type="datetime-local"
+            name="startTime"
+            value={slot.startTime}
+            onChange={handleChange}
+            min={getCurrentDateTimeLocal()}
+            required
+          />
+  
+          <label htmlFor="endTime">End Time</label>
+          <input
+            type="datetime-local"
+            name="endTime"
+            value={slot.endTime}
+            onChange={handleChange}
+            min={slot.startTime || getCurrentDateTimeLocal()} // Ensure end time is after start time
+            required
+          />
+  
           <label htmlFor="status">Status</label>
           <select
             name="status"
@@ -129,21 +128,25 @@ const SlotForm = ({ slotDetails, isEditing, onClose, onSave, onDelete }) => {
             <option value="Available">Available</option>
             <option value="Unavailable">Unavailable</option>
           </select>
-
-          <button type="submit" className="slot-form-btn">
-            {isEditing ? 'Update Slot' : 'Add New Slot'}
-          </button>
-          
-          {/* Conditionally render the Delete button only in edit mode */}
-          {isEditing && (
-            <button type="button" className="slot-form-btn delete-btn" onClick={onDelete}>
-              Delete Slot
+  
+          {/* Button container to center the buttons */}
+          <div className="button-container">
+            <button type="submit" className="slot-form-btn">
+              {isEditing ? 'Update' : 'Add'}
             </button>
-          )}
+            
+            {/* Conditionally render the Delete button only in edit mode */}
+            {isEditing && (
+              <button type="button" className="slot-form-btn delete-btn" onClick={onDelete}>
+                Delete
+              </button>
+            )}
+          </div>
         </form>
       </div>
     </div>
   );
+  
 };
 
 export default SlotForm;

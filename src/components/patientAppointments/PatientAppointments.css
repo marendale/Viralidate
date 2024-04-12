@@ -1,0 +1,62 @@
+.patient-appointments-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    min-height: 700px; 
+    margin: 160px auto 20px; 
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.patient-appointments-container h2 {
+    font-size: 24px;
+    color: #343a40;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.patient-appointments-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.patient-appointments-container li {
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px; 
+}
+
+.patient-appointments-container li:last-child {
+    border-bottom: none;
+}
+
+.patient-appointments-container li div {
+    margin-bottom: 5px; 
+}
+
+
+.patient-appointments-container .appointment-action {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.patient-appointments-container .appointment-action button {
+    padding: 5px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.patient-appointments-container .appointment-action button:hover {
+    background-color: #0056b3;
+}
