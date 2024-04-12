@@ -15,7 +15,6 @@ const Navbar = ({ isScrolled, howItWorksRef, aboutUsRef }) => {
     const [signUpType, setSignUpType] = useState(""); // 'patient' or 'admin'
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userProfileType, setUserProfileType] = useState(""); // New state for user profile type
-    const [userName, setUserName] = useState("")
     const patientPaths = ['/patientportal', '/patientportal/symptom', '/questionnaire'];
     const adminPaths = ['/adminportal', '/adminportal/appointments', '/availability-manager'];
     const navigate = useNavigate();
@@ -35,18 +34,10 @@ const Navbar = ({ isScrolled, howItWorksRef, aboutUsRef }) => {
                         console.log("User is an admin:", adminProfileSnap.data());
                         setIsLoggedIn(true);
                         setUserProfileType("admin");
-                        const firstName = adminProfileSnap.data().firstName;
-                        const lastName = adminProfileSnap.data().lastName.charAt(0).toUpperCase();
-                        const name = firstName.charAt(0).toUpperCase() + firstName.slice(1) + ' ' + lastName + '.';
-                        setUserName(name)
                     } else if (patientProfileSnap.exists()) {
                         console.log("User is a patient:", patientProfileSnap.data());
                         setIsLoggedIn(true);
                         setUserProfileType("patient");
-                        const firstName = patientProfileSnap.data().firstName;
-                        const lastName = patientProfileSnap.data().lastName.charAt(0).toUpperCase();
-                        const name = firstName.charAt(0).toUpperCase() + firstName.slice(1) + ' ' + lastName + '.';
-                        setUserName(name)
                     } 
                 } catch (error) {
                     console.error("Error fetching user profiles:", error);
@@ -93,7 +84,6 @@ const Navbar = ({ isScrolled, howItWorksRef, aboutUsRef }) => {
         await signOut(auth);
         setIsLoggedIn(false);
         setUserProfileType("");
-        setUserName("");
         navigate('/');
     };
 
@@ -139,14 +129,11 @@ const Navbar = ({ isScrolled, howItWorksRef, aboutUsRef }) => {
                                 </>
                             ) : (
                                 <>
-                                    {/* User type and name */}
-                                    <h4>{userProfileType.charAt(0).toUpperCase() + userProfileType.slice(1)}:</h4>
-                                    <h4>{userName}</h4>
                                     {/* Portal Button */}
                                     {userProfileType === 'admin' ? (
-                                        <NavLink to="/adminportal" className="navbar-button">Portal</NavLink>
+                                        <NavLink to="/adminportal" className="navbar-button">Admin Portal</NavLink>
                                     ) : (
-                                        <NavLink to="/patientportal" className="navbar-button">Portal</NavLink>
+                                        <NavLink to="/patientportal" className="navbar-button">Patient Portal</NavLink>
                                     )}
             
                                     {/* Log Out Button */}
