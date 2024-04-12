@@ -19,7 +19,7 @@ const Emergency = () => {
         libraries: ['places'],
       });
 
-      loader.importLibrary().then((google) => {
+      loader.load().then((google) => {
         const map = new google.maps.Map(document.createElement('div'));
         const service = new google.maps.places.PlacesService(map);
 

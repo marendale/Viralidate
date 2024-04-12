@@ -16,7 +16,7 @@ import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 const App = () => {
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = "//code.tidio.co/zvwcyofvqgcrv3khy0vhvhniiimgzmuj.js";
+    script.src = "//code.tidio.co/e95fsl4lvkhxwsi2rkj3hn6pq1y0pxgg.js";
     script.async = true;
 
     document.body.appendChild(script);
