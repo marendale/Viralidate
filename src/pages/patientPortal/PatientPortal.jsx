@@ -7,15 +7,31 @@ import Questionnaire from '../../pages/questionnaire/Questionnaire';
 import { FaUser, FaFileMedical, FaCalendarCheck, FaEnvelope, FaStethoscope } from 'react-icons/fa';
 import PatientRecords from '../../components/patientRecords/PatientRecords';
 import PatientAppointments from '../../components/patientAppointments/PatientAppointments';
+import Emergency from '../emergency/Emergency';
+import Confirmation from '../confirmation/Confirmation';
 
 const PatientPortal = () => {
     const [selectedOption, setSelectedOption] = useState('');
+    const [diagnosis, setDiagnosis] = useState(null);
+    const [urgency, setUrgency] = useState(null);
+    const [confirm, setConfirm] = useState(null);
     const [appointmentDetails, setAppointmentDetails] = useState(null);
 
-    const handleQuestionnaireComplete = (data) => {
-        setAppointmentDetails(data);
-        setSelectedOption('appointments');
+    const handleQuestionnaireComplete = (diagnosis, urgency) => {
+        //setAppointmentDetails(data);
+        setDiagnosis(diagnosis);
+        setUrgency(urgency);
+        if (urgency === "Emergency") {
+            setSelectedOption('emergency');
+        } else {
+            setSelectedOption('appointmentSelection');
+        }
     };
+
+    const handleConfirmation = (id) => {
+        setConfirm(id)
+        setSelectedOption('confirmation')
+    }
 
     return (
         <div className="patient-portal-container">
@@ -42,6 +58,9 @@ const PatientPortal = () => {
                     {selectedOption === 'records' && <PatientRecords />}
                     {selectedOption === 'appointments' && <PatientAppointments />}
                     {selectedOption === 'symptomChecker' && <Questionnaire onComplete={handleQuestionnaireComplete} />}
+                    {selectedOption === 'appointmentSelection' && <AppointmentSelection onComplete={handleConfirmation} diagnosis={diagnosis} urgency={urgency} />}
+                    {selectedOption === 'emergency' && <Emergency />}
+                    {selectedOption === 'confirmation' && <Confirmation id={confirm}/>}
                 </main>
             </div>
         </div>

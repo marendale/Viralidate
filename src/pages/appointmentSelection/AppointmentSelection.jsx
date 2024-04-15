@@ -11,12 +11,12 @@ import { collection, query, where, getDocs, setDoc, getDoc, doc, updateDoc } fro
 import ConfirmationModal from '../../components/confirmation/ConfirmationModal';
 import { Context } from '../../components/context/AuthContext';
 
-const AppointmentSelection = () => {
+const AppointmentSelection = (props) => {
     const { user } = useContext(Context);
     const location = useLocation();
     const navigate = useNavigate();
-    const urgency = location.state.urgency;
-    const diagnosis = location.state.diagnosis;
+    const urgency = props.urgency;
+    const diagnosis = props.diagnosis;
     const [available, setAvailable] = useState([]);
     const [selectedAppointment, setSelectedAppointment] = useState(null);
 
@@ -82,7 +82,8 @@ const AppointmentSelection = () => {
         await updateDoc(doc(db, "Availability", id), {
             status: "Unavailable",
         });
-        navigate('/appointment-confirmation' , { state: {id: id} });
+        props.onComplete(id)
+        //navigate('/appointment-confirmation' , { state: {id: id} });
     }
 
     const handleBack = () => {

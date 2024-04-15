@@ -2,10 +2,10 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import './Confirmation.css';
 
-const Confirmation = () => {
+const Confirmation = (props) => {
     const location = useLocation();
     const navigate = useNavigate(); 
-    const id = location.state.id;
+    const id = props.id;
 
     const goBack = () => {
         navigate(-1);
