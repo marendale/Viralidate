@@ -8,6 +8,7 @@ import AppointmentSelection from './pages/appointmentSelection/AppointmentSelect
 import Frontpage from './pages/frontpage/Frontpage';
 import Confirmation from './pages/confirmation/Confirmation';
 import Emergency from './pages/emergency/Emergency';
+import Survey from './pages/survey/Survey';
 import { AuthContext } from './components/context/AuthContext';
 import { PrivateRoute } from './components/privateRoute/PrivateRoute';
 import { createBrowserRouter,RouterProvider } from 'react-router-dom'
@@ -60,6 +61,10 @@ const App = () => {
       path:"/emergency",
       element:<PrivateRoute component = {<Emergency />} allowed={['patient']}/>
     },
+    {
+      path:"/survey",
+      element:<PrivateRoute component = {<Survey />} allowed={['patient']}/>
+    }
   ])
 
 
