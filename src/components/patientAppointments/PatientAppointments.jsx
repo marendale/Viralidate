@@ -22,7 +22,6 @@ const PatientAppointments = () => {
                 const q = query(
                     collection(db, "Appointments"),
                     where("patientID", "==", user.uid),
-                    where("start", ">", now.toISOString())
                 );
 
                 const querySnapshot = await getDocs(q);
@@ -35,7 +34,7 @@ const PatientAppointments = () => {
                             start: new Date(data.start).toLocaleString(),
                             end: new Date(data.end).toLocaleString(),
                         };
-                    });
+                    }).filter(appointment => new Date(appointment.start) > now);
 
                     if (isMounted) {
                         setAppointments(fetchedAppointments);

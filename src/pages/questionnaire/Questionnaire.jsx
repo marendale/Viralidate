@@ -8,7 +8,7 @@ import diseaseUrgency from './disease_urgency.json';
 import Navbar from '../../components/navbar/Navbar';
 import './Questionnaire.css';
 
-const Questionnaire = () => {
+const Questionnaire = (props) => {
   const navigate = useNavigate();
   const [currentNode, setCurrentNode] = useState(decisionTree);
   const [diagnosis, setDiagnosis] = useState('');
@@ -24,11 +24,7 @@ const Questionnaire = () => {
 
   useEffect(() => {
     if (diagnosis && urgency) {
-      if (urgency == "Emergency") {
-        navigate('/emergency');
-      } else {
-        navigate('/appointment-selection' , { state: { diagnosis: diagnosis, urgency: urgency } });
-      }
+      props.onComplete(diagnosis, urgency);
     }
   }, [diagnosis, urgency])
 
